@@ -1,3 +1,5 @@
 /vendor
 /node_modules
 .env
+/app/config/app.php
+/app/config/database.php
