@@ -10,6 +10,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	use Authenticatable, CanResetPassword;
 
+
+
+	public function product()
+	{
+		return $this->hasMany('App\Product');
+	}
+
+
 	/**
 	 * The database table used by the model.
 	 *

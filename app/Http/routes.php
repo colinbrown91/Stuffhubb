@@ -20,6 +20,10 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::resource('products','ProductController');
+
+
 Route::get('/db', function(){
 	return DB::select('select database();');
 });
+
