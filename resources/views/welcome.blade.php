@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
 
-HI Forge
+HI Forge/Bit
 
 @endsection
