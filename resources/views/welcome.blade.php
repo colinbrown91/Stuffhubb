@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
 
-HI Forge? work 4/24
+Site updated and loaded in forge
 
 @endsection
