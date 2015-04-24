@@ -27,6 +27,7 @@
             <li><a href="{{ url('/about') }}">PLATFORM</a></li>
             <li><a href="{{ url('/auth/register') }}">SIGN UP</a></li>
             <li><a href="{{ url('auth/login') }}">LOG IN</a></li>
+            <li><a href="{{ url('/products'}}">PRODUCTS</a></li>
             <li class="active"><a href="{{ url('#') }}">LIST</a></li>
         </ul>
         <!-- Left Nav Section -->
