@@ -18,4 +18,4 @@
 		</ul>
 	@endforeach
 
-@endsectionA
+@endsection
