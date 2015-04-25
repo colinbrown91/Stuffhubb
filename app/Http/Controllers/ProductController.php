@@ -52,7 +52,8 @@ class ProductController extends Controller {
 
 		// Know how to get single input
 		// shown below getting name of product
-		$product_name = Input::get('name', 'price');
+		$product_name = Input::get('name');
+		$product_price = Input::get('price');
 		// How do we get two inputs?
 		// Name
 		// Price
@@ -62,7 +63,7 @@ class ProductController extends Controller {
 		$product = new Product();
 		$product->product_name = $product_name;
 		// default price for now
-		$product->price = 10.00;
+		$product->price = $product_price;
 		$product->save();
 		return Redirect::route('products.index')->withMessage('Product was created!');
 	}
