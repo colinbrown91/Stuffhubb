@@ -9,8 +9,7 @@ use App\Product;
 
 use View;
 // use App\Product;
-// use App\Http\Requests;
-// use App\Http\Controllers\Controller;
+use App\Http\Requests;
 use Input;
 use Redirect;
 use Validator;
@@ -47,7 +46,8 @@ class ProductController extends Controller {
 	 */
 	public function store()
 	{
-		
+		// return Input::all();
+
 		// Do we care about validation?
 		// What would we want to validate?
 		// Can products have the same names?
