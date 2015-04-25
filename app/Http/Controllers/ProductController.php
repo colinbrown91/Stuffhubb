@@ -49,7 +49,7 @@ class ProductController extends Controller {
 	{
 		// Know how to get single input
 		// shown below getting name of product
-		$name = Input::get('product_name');
+		$product_name = Input::get('name');
 		// How do we get two inputs?
 		// Name
 		// Price
