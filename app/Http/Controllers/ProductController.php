@@ -40,7 +40,19 @@ class ProductController extends Controller {
 	 */
 	public function store()
 	{
-		//
+		// Know how to get single input
+		// shown below getting name of product
+		$name = Input::get('name');
+		// How do we get two inputs?
+		// Name
+		// Price
+		// Will need to designate which form gives which input?
+		// Or just receive an array of inputs like below?
+		// get('name', 'price')
+		$product = new Product();
+		$product->name = $name;
+		$product->save();
+		return Redirect::route('products.index')->withMessage('Product was created!');
 	}
 
 	/**

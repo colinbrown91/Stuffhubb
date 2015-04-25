@@ -1,6 +1,10 @@
 @extends('layouts.main')
 @section('content')
 
-<p> Hello Matt </p>
+	{!! Form::open(array('route' => 'products.store')) !!}
+		<div class='form-group'>
+			@include('products.partials.__form')
+		</div>
+	{!! Form::close() !!}
 
 @endsection
