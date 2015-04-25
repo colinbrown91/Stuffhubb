@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 use App\Product;
 
 use View;
-// use App\Product;
-use App\Http\Requests;
 use Input;
 use Redirect;
 use Validator;
