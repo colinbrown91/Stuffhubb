@@ -2,7 +2,8 @@
 @section('content')
 
 <h2>All Products</h2>
-	<!-- blade way to iterate through todo_lists -->
+
+	<!-- blade syntax iterate through products -->
 	@foreach ($products as $product)
 		<h4>{!! link_to_route('products.show', $product->product_name, [$product->id] ) !!}</h4>
 		<ul class = "no-bullet button-group">
@@ -17,10 +18,10 @@
 				
 		</ul>
 
-		{{-- Button for creating a new Product --}}
-		{{-- wit link to the create view --}}
-		{!! link_to_route('products.create', 'Create New Product', null, ['class' => 'success button']) !!}
-
 	@endforeach
+
+	{{-- Button for creating a new Product --}}
+	{{-- wit link to the create view --}}
+	{!! link_to_route('products.create', 'Create New Product', null, ['class' => 'success button']) !!}
 
 @endsection
