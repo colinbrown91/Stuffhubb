@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 use App\Product;
 
 use View;
+// use App\Product;
+// use App\Http\Requests;
+// use App\Http\Controllers\Controller;
+use Input;
+use Redirect;
+use Validator;
+use Session;
 
 class ProductController extends Controller {
 
