@@ -44,7 +44,7 @@ class ProductController extends Controller {
 	 */
 	public function store()
 	{
-		// return Input::all();
+		return Input::all();
 
 		// Do we care about validation?
 		// What would we want to validate?
@@ -52,7 +52,7 @@ class ProductController extends Controller {
 
 		// Know how to get single input
 		// shown below getting name of product
-		$product_name = Input::get('name');
+		$product_name = Input::get('name', 'price');
 		// How do we get two inputs?
 		// Name
 		// Price
