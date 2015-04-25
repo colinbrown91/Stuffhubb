@@ -16,6 +16,11 @@
 			</li>
 				
 		</ul>
+
+		{{-- Button for creating a new Product --}}
+		{{-- wit link to the create view --}}
+		{!! link_to_route('products.create', 'Create New Product', null, ['class' => 'success button']) !!}
+
 	@endforeach
 
 @endsection

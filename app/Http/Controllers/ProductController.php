@@ -47,6 +47,11 @@ class ProductController extends Controller {
 	 */
 	public function store()
 	{
+		
+		// Do we care about validation?
+		// What would we want to validate?
+		// Can products have the same names?
+
 		// Know how to get single input
 		// shown below getting name of product
 		$product_name = Input::get('name');
@@ -72,7 +77,9 @@ class ProductController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$product = Product::findOrFail($id);
+		return View::make(products.show)
+			->withProduct($product);
 	}
 
 	/**
