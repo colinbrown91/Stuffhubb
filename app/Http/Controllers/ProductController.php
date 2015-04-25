@@ -44,7 +44,7 @@ class ProductController extends Controller {
 	 */
 	public function store()
 	{
-		return Input::all();
+		// return Input::all();
 
 		// Do we care about validation?
 		// What would we want to validate?
