@@ -1,5 +1,5 @@
-/vendor
+#/vendor
 /node_modules
-.env
+#.env
 #/config/app.php
 #/config/database.php
