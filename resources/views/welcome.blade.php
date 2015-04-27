@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
 
-Site updated and loaded in forge Check 3
+4-25-15 
 
 @endsection
