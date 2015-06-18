@@ -21,7 +21,9 @@ Route::controllers([
 ]);
 
 Route::resource('products','ProductController');
+Route::resource('user','UserController');
 
+Route::get('/about','AboutController@index');
 
 Route::get('/db', function(){
 	return DB::select('select database();');

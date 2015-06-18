@@ -15,6 +15,8 @@ use Session;
 
 class ProductController extends Controller {
 
+
+
 	/**
 	 * Display a listing of the resource.
 	 *
