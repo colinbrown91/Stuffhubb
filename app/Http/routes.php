@@ -22,6 +22,8 @@ Route::controllers([
 
 Route::resource('products','ProductController');
 Route::resource('user','UserController');
+Route::get('products/photos/getphoto/{photo_id}', ['uses' => 'PhotoController@getPhoto', 'as' => 'products.photos.getphoto']);
+Route::resource('products.photos', 'PhotoController');
 
 Route::get('/about','AboutController@index');
 

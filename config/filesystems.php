@@ -66,6 +66,11 @@ return [
 			'url_type'  => 'publicURL'
 		],
 
+		'productPictures' => [
+			'driver' => 'local',
+			'root' => storage_path().'/app/productImages'
+		],
+
 	],
 
 ];
