@@ -17,6 +17,11 @@ use Session;
 
 class ProductController extends Controller {
 
+	public function __construct()
+	{
+		$this->beforeFilter('csrf', array('on' => 'post', 'put'));
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -47,6 +52,22 @@ class ProductController extends Controller {
 	 */
 	public function store()
 	{
+		
+		// Validation
+		// define rules
+		$rules = array(
+			// 'name' => array('required', 'unique:todo_lists,name')
+		);
+
+		// pass input to validator
+		$validator = Validator::make(Input::all(), $rules);
+
+		// test if input fails
+		if($validator->fails()){
+			// $messages = $validator->messages();
+			// return $messages;
+			return Redirect::route('todos.create')->withErrors($validator)->withInput();
+		}
 		// $bool0 = 0;
 
 		/** 
@@ -128,6 +149,22 @@ class ProductController extends Controller {
 	 */
 	public function update($id)
 	{
+		// Validation
+		// define rules
+		$rules = array(
+			// 'name' => array('required', 'unique:todo_lists,name')
+		);
+
+		// pass input to validator
+		$validator = Validator::make(Input::all(), $rules);
+
+		// test if input fails
+		if($validator->fails()){
+			// $messages = $validator->messages();
+			// return $messages;
+			return Redirect::route('todos.create')->withErrors($validator)->withInput();
+		}
+		
 				// $bool0 = 0;
 
 		/** 

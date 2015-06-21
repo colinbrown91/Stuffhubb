@@ -23,6 +23,11 @@ use Image;
 
 class PhotoController extends Controller {
 
+	public function __construct()
+	{
+		$this->beforeFilter('csrf', array('on' => 'post', 'put'));
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -52,10 +57,7 @@ class PhotoController extends Controller {
 	// public function store(Request $request)
 	public function store($product_id)
 	{
-		$product = Product::findOrFail($product_id);
-		// var_dump($product); // var dump product id
-
-
+		
 		/* File Uploading */
 		/* 
 		 * 6/1/15
@@ -78,11 +80,30 @@ class PhotoController extends Controller {
 		$filename = $file->getClientOriginalName();
 		// var_dump($filename); // var dump to check what is stored in $filename
 
-		// Storage::disk('local')->put($request->getFilename().'.'.$request->getClientOriginalExtension, $request);
-
-
 		$extension = $file->getClientOriginalExtension(); // Retrieve file extension
 		// var_dump($extension); // var dump to check what is stored in $extension
+
+		// Validation
+		// define rules
+		$rules = array(
+			// 'name' => array('required', 'unique:todo_lists,name')
+		);
+
+		// pass input to validator
+		$validator = Validator::make(Input::all(), $rules);
+
+		// test if input fails
+		if($validator->fails()){
+			// $messages = $validator->messages();
+			// return $messages;
+			return Redirect::route('todos.create')->withErrors($validator)->withInput();
+		}
+
+		$product = Product::findOrFail($product_id);
+		// var_dump($product); // var dump product id
+
+		// Storage::disk('local')->put($request->getFilename().'.'.$request->getClientOriginalExtension, $request);
+
 		Storage::disk('productPictures')->put($file->getFilename().'.'.$extension, File::get($file));
 		$photo = new ProductPhoto();
 		// var_dump($entry);
