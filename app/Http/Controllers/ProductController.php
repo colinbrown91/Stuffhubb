@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Product;
+use App\Tests;
+// use FileUploadTest;
 
 use View;
 use Input;
@@ -14,8 +16,6 @@ use Validator;
 use Session;
 
 class ProductController extends Controller {
-
-
 
 	/**
 	 * Display a listing of the resource.
@@ -26,7 +26,8 @@ class ProductController extends Controller {
 	{
 		//
 		$products = Product::all();
-		return View::make('products.index')->with('products', $products);
+		return View::make('products.index')
+			->with('products', $products);
 	}
 
 	/**
@@ -46,28 +47,47 @@ class ProductController extends Controller {
 	 */
 	public function store()
 	{
-		// return Input::all();
+		// $bool0 = 0;
 
-		// Do we care about validation?
-		// What would we want to validate?
-		// Can products have the same names?
+		/** 
+		 * the following line is for testing purposes
+		 * to see all input from form
+		 * return Input::all();
+		 */
 
-		// Know how to get single input
-		// shown below getting name of product
+		/**
+		 * Do we care about validation?
+		 * What would we want to validate?
+		 * Can products have the same names?
+		 * I'd say we would allow products with the 
+		 * same name, but maybe not
+		 */
+
+		// Get inputs from create form
 		$product_name = Input::get('name');
 		$product_price = Input::get('price');
-		// How do we get two inputs?
-		// Name
-		// Price
-		// Will need to designate which form gives which input?
-		// Or just receive an array of inputs like below?
-		// get('name', 'price')
+		// $file = Request::file('file_0');
+		// $product_picture_filename = $file->getClientOriginalName();
+		// $product_picture_0_url = asset(Input::get('picture_0'));
+		// FileUploadTest::fileUpload($product_picture_0_url);
+
+		// Create new Product
 		$product = new Product();
+
+		// Set variables of new Product to values received from input form
+		// Name
 		$product->product_name = $product_name;
-		// default price for now
+		// Price
 		$product->price = $product_price;
+		// Picture URLs
+		// $product->original_filename = $product_picture_filename;
+		// Save 
 		$product->save();
-		return Redirect::route('products.index')->withMessage('Product was created!');
+		// Upload photos
+		// Redirect::route('products.files.store');
+		// Redirect to Index View with successful creation message
+		return Redirect::route('products.index')
+			->withMessage('Product was created!');
 	}
 
 	/**
@@ -79,8 +99,13 @@ class ProductController extends Controller {
 	public function show($id)
 	{
 		$product = Product::findOrFail($id);
+		// var_dump($product);
+		$photos = $product->productPhotos()->get();
+		// var_dump($pictures);
+		// return $photos;
 		return View::make('products.show')
-			->withProduct($product);
+			->withProduct($product)
+			->withPhotos($photos);
 	}
 
 	/**
@@ -91,7 +116,8 @@ class ProductController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$product = Product::findOrFail($id);
+		return View::make('products.edit')->withProduct($product);
 	}
 
 	/**
@@ -102,7 +128,47 @@ class ProductController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+				// $bool0 = 0;
+
+		/** 
+		 * the following line is for testing purposes
+		 * to see all input from form
+		 * return Input::all();
+		 */
+
+		/**
+		 * Do we care about validation?
+		 * What would we want to validate?
+		 * Can products have the same names?
+		 * I'd say we would allow products with the 
+		 * same name, but maybe not
+		 */
+
+		// Get inputs from create form
+		$product_name = Input::get('name');
+		$product_price = Input::get('price');
+		// $file = Request::file('file_0');
+		// $product_picture_filename = $file->getClientOriginalName();
+		// $product_picture_0_url = asset(Input::get('picture_0'));
+		// FileUploadTest::fileUpload($product_picture_0_url);
+
+		// Create new Product
+		$product = Product::findOrFail($id);
+
+		// Set variables of new Product to values received from input form
+		// Name
+		$product->product_name = $product_name;
+		// Price
+		$product->price = $product_price;
+		// Picture URLs
+		// $product->original_filename = $product_picture_filename;
+		// Save 
+		$product->update();
+		// Upload photos
+		// Redirect::route('products.files.store');
+		// Redirect to Index View with successful creation message
+		return Redirect::route('products.index')
+			->withMessage('Product was updated!');
 	}
 
 	/**
