@@ -7,7 +7,7 @@ class Product extends Model {
 	/**
      * The user function of this model.
      * Products belong to users.
-     * @var this - user that the product belongs to.
+     * @return this - user that the product belongs to.
      *
 	 */
 	public function user()
@@ -18,7 +18,7 @@ class Product extends Model {
 	/**
      * The productPhotos function of this model.
      * productPhotos belong to products.
-     * @var this - array of photos that belong to the product.
+     * @return this - array of photos that belong to the product.
      *
      */
 	public function productPhotos()

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 use App\Product;
 use App\Tests;
-// use FileUploadTest;
 
 use View;
 use Input;
@@ -17,6 +16,12 @@ use Session;
 
 class ProductController extends Controller {
 
+	/**
+	 * Function to require csrf token.
+	 * Will run everytime we enter the controller.
+	 * route methods that require token - post, put
+	 * 
+	 */
 	public function __construct()
 	{
 		$this->beforeFilter('csrf', array('on' => 'post', 'put'));
@@ -24,8 +29,9 @@ class ProductController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
-	 *
+	 * @var products - all products
 	 * @return Response
+	 *  with @var products
 	 */
 	public function index()
 	{
@@ -49,6 +55,7 @@ class ProductController extends Controller {
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
+	 *  with message
 	 */
 	public function store()
 	{
@@ -116,14 +123,13 @@ class ProductController extends Controller {
 	 *
 	 * @param  int  $id
 	 * @return Response
+	 *  with @var product
+	 *  with @var photos
 	 */
 	public function show($id)
 	{
 		$product = Product::findOrFail($id);
-		// var_dump($product);
 		$photos = $product->productPhotos()->get();
-		// var_dump($pictures);
-		// return $photos;
 		return View::make('products.show')
 			->withProduct($product)
 			->withPhotos($photos);
@@ -133,7 +139,9 @@ class ProductController extends Controller {
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
+	 * @var product
 	 * @return Response
+	 *  with @var product
 	 */
 	public function edit($id)
 	{
@@ -212,7 +220,9 @@ class ProductController extends Controller {
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
+	 * @var product
 	 * @return Response
+	 *  with message
 	 */
 	public function destroy($id)
 	{
