@@ -45,7 +45,9 @@ class PhotoController extends Controller {
 	 */
 	public function create($product_id)
 	{
+		var_dump($product_id);
 		$product = Product::findOrFail($product_id);
+		// var_dump($product);
 		return View::make('photos.create')->withProduct($product);
 	}
 
@@ -57,6 +59,8 @@ class PhotoController extends Controller {
 	// public function store(Request $request)
 	public function store($product_id)
 	{
+		$product = Product::findOrFail($product_id); // retrieve product that photo will belong to
+
 		/* Use Request with Illuminate\Support\Facades\Request; */
 		$file = Request::file('file_0');
 		
@@ -64,14 +68,14 @@ class PhotoController extends Controller {
 		$extension = $file->getClientOriginalExtension(); // Retrieve file extension
 
 		$rules = array( // validation rules
-			'file_0' => array('mimes', 'mimes:jpeg,gif,png,tiff')
+			'file_0' => 'mimes:jpeg,gif,png,tiff'
 		);
 		$validator = Validator::make(Input::all(), $rules); // pass input to validator
 		if($validator->fails()){ // test if input fails validation
-			return Redirect::route('products.photos.create')->withErrors($validator)->withInput();
+			return Redirect::route('products.photos.create', [$product->id])
+				->withErrors($validator)
+				->withInput();
 		}
-
-		$product = Product::findOrFail($product_id); // retrieve product that photo will belong to
 
 		Storage::disk('productPictures')->put($file->getFilename().'.'.$extension, File::get($file)); // store photo
 		$photo = new ProductPhoto(); // create new photo object
