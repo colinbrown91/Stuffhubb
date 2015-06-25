@@ -57,64 +57,30 @@ class PhotoController extends Controller {
 	// public function store(Request $request)
 	public function store($product_id)
 	{
-		
-		/* File Uploading */
-		/* 
-		 * 6/1/15
-		 * Two ways that I have been able to populate $file
-		 * One way is using Input
-		 * Another way is using Request
-		 * I do not know the advantages/disadvantages to each, yet.
-		 * 
-		*/
 		/* Use Request with Illuminate\Support\Facades\Request; */
 		$file = Request::file('file_0');
-		/* Or use Input */
-		// $file = Input::file('file_0');
-		/* I did not try the below */
-		// $file = $request->file('file_0');
 		
-		// var_dump($file); // var dump to check what is stored in $file
-
-		// Get file name
-		$filename = $file->getClientOriginalName();
-		// var_dump($filename); // var dump to check what is stored in $filename
-
+		$filename = $file->getClientOriginalName(); // Get filename
 		$extension = $file->getClientOriginalExtension(); // Retrieve file extension
-		// var_dump($extension); // var dump to check what is stored in $extension
 
-		// Validation
-		// define rules
-		$rules = array(
-			// 'name' => array('required', 'unique:todo_lists,name')
+		$rules = array( // validation rules
+			'file_0' => array('mimes', 'mimes:jpeg,gif,png,tiff')
 		);
-
-		// pass input to validator
-		$validator = Validator::make(Input::all(), $rules);
-
-		// test if input fails
-		if($validator->fails()){
-			// $messages = $validator->messages();
-			// return $messages;
-			return Redirect::route('todos.create')->withErrors($validator)->withInput();
+		$validator = Validator::make(Input::all(), $rules); // pass input to validator
+		if($validator->fails()){ // test if input fails validation
+			return Redirect::route('products.photos.create')->withErrors($validator)->withInput();
 		}
 
-		$product = Product::findOrFail($product_id);
-		// var_dump($product); // var dump product id
+		$product = Product::findOrFail($product_id); // retrieve product that photo will belong to
 
-		// Storage::disk('local')->put($request->getFilename().'.'.$request->getClientOriginalExtension, $request);
+		Storage::disk('productPictures')->put($file->getFilename().'.'.$extension, File::get($file)); // store photo
+		$photo = new ProductPhoto(); // create new photo object
+		$photo->product_id = $product_id; // store product_id
+		$photo->mime = $file->getClientMimeType(); // store mime type
+		$photo->original_filename = $file->getClientOriginalName(); // store original filename
+		$photo->filename = $file->getFilename().'.'.$extension; // store storage filename
+		$product->productPhotos()->save($photo); // save photo object
 
-		Storage::disk('productPictures')->put($file->getFilename().'.'.$extension, File::get($file));
-		$photo = new ProductPhoto();
-		// var_dump($entry);
-		$photo->product_id = $product_id;
-		$photo->mime = $file->getClientMimeType();
-		$photo->original_filename = $file->getClientOriginalName();
-		$photo->filename = $file->getFilename().'.'.$extension;
-		// var_dump($entry);
-		$product->productPhotos()->save($photo);
-
-		// return 'Photos uploaded';
 		return Redirect::route('products.show', $product->id)
 			->withMessage('Photo Added');
 	}

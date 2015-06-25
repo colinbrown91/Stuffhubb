@@ -73,7 +73,7 @@ class ProductController extends Controller {
 		if($validator->fails()){
 			// $messages = $validator->messages();
 			// return $messages;
-			return Redirect::route('todos.create')->withErrors($validator)->withInput();
+			return Redirect::route('products.create')->withErrors($validator)->withInput();
 		}
 		// $bool0 = 0;
 
@@ -170,7 +170,7 @@ class ProductController extends Controller {
 		if($validator->fails()){
 			// $messages = $validator->messages();
 			// return $messages;
-			return Redirect::route('todos.create')->withErrors($validator)->withInput();
+			return Redirect::route('products.create')->withErrors($validator)->withInput();
 		}
 		
 				// $bool0 = 0;
