@@ -71,26 +71,25 @@ class PhotoController extends Controller {
 	 */
 	public function store($product_id)
 	{
+		$rules = array( // validation rules
+			'file_0' => 'required|max:1000|mimes:jpeg,gif,png,tiff' // max size is in kb
+		);
+		$validator = Validator::make(Input::all(), $rules); // pass input to validator
+		if($validator->fails()){ // test if input fails validation
+			return Redirect::route('products.photos.create', [$product->id])
+				->withErrors($validator)
+				->withInput();
+		}
 		$product = Product::findOrFail($product_id); // retrieve product that photo will belong to
 		$photos = $product->productPhotos()->get(); // retrieve current product photos
 		if(count($photos) >= 3){ // If there are three or more photos for this product do not upload
 			return Redirect::route('products.show', $product->id)
-				->withMessage('This product has too many photos. Please delete a photo before adding a new one.');
+				->withMessage('This product has too many photos. Delete a photo before adding a new one.');
 		}
 		else { // upload photo
 			$file = Request::file('file_0'); // Use Request with Illuminate\Support\Facades\Request;		
 			$filename = $file->getClientOriginalName(); // Get filename
 			$extension = $file->getClientOriginalExtension(); // Retrieve file extension
-
-			$rules = array( // validation rules
-				'file_0' => 'mimes:jpeg,gif,png,tiff'
-			);
-			$validator = Validator::make(Input::all(), $rules); // pass input to validator
-			if($validator->fails()){ // test if input fails validation
-				return Redirect::route('products.photos.create', [$product->id])
-					->withErrors($validator)
-					->withInput();
-			}
 
 			Storage::disk('productPictures')->put($file->getFilename().'.'.$extension, File::get($file)); // store photo
 			$photo = new ProductPhoto(); // create new photo object
