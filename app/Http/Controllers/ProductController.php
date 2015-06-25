@@ -53,7 +53,11 @@ class ProductController extends Controller {
 
 	/**
 	 * Store a newly created resource in storage.
-	 *
+	 * @var array $rules 			- rules for product validation
+	 * @var validator $validator 	- validator for product objects
+	 * @var string $product_name 	- input product name
+	 * @var string $product_price 	- input product price
+	 * @var object $product 		- new product object
 	 * @return Response
 	 *  with message
 	 */

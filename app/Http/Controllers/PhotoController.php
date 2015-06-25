@@ -23,6 +23,12 @@ use Image;
 
 class PhotoController extends Controller {
 
+	/**
+	 * Function to require csrf token.
+	 * Will run everytime we enter the controller.
+	 * route methods that require token - post, put
+	 * 
+	 */
 	public function __construct()
 	{
 		$this->beforeFilter('csrf', array('on' => 'post', 'put'));
@@ -40,53 +46,64 @@ class PhotoController extends Controller {
 
 	/**
 	 * Show the form for creating a new resource.
-	 *
+	 * @var product - current product
 	 * @return Response
+	 *  with @var product
 	 */
 	public function create($product_id)
 	{
-		var_dump($product_id);
 		$product = Product::findOrFail($product_id);
-		// var_dump($product);
 		return View::make('photos.create')->withProduct($product);
 	}
 
 	/**
 	 * Store a newly created resource in storage.
-	 *
+	 * @param product_id	- current product's id
+	 * @var product 	- current product
+	 * @var photos 		- array of current photos under this product
+	 * @var file 		- file to upload
+	 * @var filename 	- original filename of @var file
+	 * @var extension 	- original extension of @var file
+	 * @var rules 		- array of rules for validation
+	 * @var validator 	- validation of @var file
+	 * @var photo 		- new photo object created for this product
 	 * @return Response
 	 */
-	// public function store(Request $request)
 	public function store($product_id)
 	{
 		$product = Product::findOrFail($product_id); // retrieve product that photo will belong to
-
-		/* Use Request with Illuminate\Support\Facades\Request; */
-		$file = Request::file('file_0');
-		
-		$filename = $file->getClientOriginalName(); // Get filename
-		$extension = $file->getClientOriginalExtension(); // Retrieve file extension
-
-		$rules = array( // validation rules
-			'file_0' => 'mimes:jpeg,gif,png,tiff'
-		);
-		$validator = Validator::make(Input::all(), $rules); // pass input to validator
-		if($validator->fails()){ // test if input fails validation
-			return Redirect::route('products.photos.create', [$product->id])
-				->withErrors($validator)
-				->withInput();
+		$photos = $product->productPhotos()->get(); // retrieve current product photos
+		if(count($photos) >= 3){ // If there are three or more photos for this product do not upload
+			return Redirect::route('products.show', $product->id)
+				->withMessage('This product has too many photos. Please delete a photo before adding a new one.');
 		}
+		else { // upload photo
+			$file = Request::file('file_0'); // Use Request with Illuminate\Support\Facades\Request;		
+			$filename = $file->getClientOriginalName(); // Get filename
+			$extension = $file->getClientOriginalExtension(); // Retrieve file extension
 
-		Storage::disk('productPictures')->put($file->getFilename().'.'.$extension, File::get($file)); // store photo
-		$photo = new ProductPhoto(); // create new photo object
-		$photo->product_id = $product_id; // store product_id
-		$photo->mime = $file->getClientMimeType(); // store mime type
-		$photo->original_filename = $file->getClientOriginalName(); // store original filename
-		$photo->filename = $file->getFilename().'.'.$extension; // store storage filename
-		$product->productPhotos()->save($photo); // save photo object
+			$rules = array( // validation rules
+				'file_0' => 'mimes:jpeg,gif,png,tiff'
+			);
+			$validator = Validator::make(Input::all(), $rules); // pass input to validator
+			if($validator->fails()){ // test if input fails validation
+				return Redirect::route('products.photos.create', [$product->id])
+					->withErrors($validator)
+					->withInput();
+			}
 
-		return Redirect::route('products.show', $product->id)
-			->withMessage('Photo Added');
+			Storage::disk('productPictures')->put($file->getFilename().'.'.$extension, File::get($file)); // store photo
+			$photo = new ProductPhoto(); // create new photo object
+			$photo->product_id = $product_id; // store product_id
+			$photo->mime = $file->getClientMimeType(); // store mime type
+			$photo->original_filename = $file->getClientOriginalName(); // store original filename
+			$photo->filename = $file->getFilename().'.'.$extension; // store storage filename
+			$product->productPhotos()->save($photo); // save photo object
+
+			return Redirect::route('products.show', $product->id)
+				->withMessage('Photo Added');
+		}
+		
 	}
 
 	/**
@@ -126,23 +143,27 @@ class PhotoController extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $product_id - current product's id
+	 * @param  int  $photo_it 	- current photo's id
 	 * @return Response
 	 */
 	public function destroy($product_id, $photo_id)
 	{
-		$photo = ProductPhoto::findOrFail($photo_id);
-
-		// return $photo;
-		$photo_filename = $photo->filename;
-		Storage::disk('productPictures')->delete($photo_filename);
-
-		$photo->delete();
+		$photo = ProductPhoto::findOrFail($photo_id); // Get photo object
+		$photo_filename = $photo->filename; // Get filename to delete in storage
+		Storage::disk('productPictures')->delete($photo_filename); // delete file from storage
+		$photo->delete(); // delete photo object
 
 		return Redirect::route('products.show', $product_id)
 			->withMessage('Photo Deleted');
 	}
 
+	/**
+	 * Get photo from storage
+	 * @param int $photo_id - current photo's id
+	 * @var object $photo 	- current photo
+	 * @var file $file 		- file associated with current photo
+	 */
 	public function getPhoto($photo_id)
 	{
 		// $product = Product::findOrFail($product_id);
@@ -150,10 +171,10 @@ class PhotoController extends Controller {
 		
 		// return $filename;
 		// $photo = ProductPhoto::where('filename', '=', $filename)->firstOrFail();
-		$photo = ProductPhoto::findOrFail($photo_id);
+		$photo = ProductPhoto::findOrFail($photo_id); // Get photo object
 
 		// $photo = ProductPhoto::findOrFail($photo_id);
-		$file = Storage::disk('productPictures')->get($photo->filename);
+		$file = Storage::disk('productPictures')->get($photo->filename); // Get file from storage
 
 		// $image = Image::make('$file');
 
@@ -161,15 +182,13 @@ class PhotoController extends Controller {
 		// return $photo->mime;
 		// return $file;
 		// var_dump($file);
-		// return null;
 		// return $photo->filename;
-		// return null;
 		// return $photo->filename;
 		// var_dump($file);
 		// return $file_path;
 		// $response = new Response('$file', 200)
-		$response = Response::make($file, 200);
-		$response->headers->set('Content-type', $photo->mime);
+		$response = Response::make($file, 200); // Create response with file
+		$response->headers->set('Content-type', $photo->mime); // set response headers
 		return $response;
 			// ->withProduct($product)
 			// ->withProductPhoto($photo);
