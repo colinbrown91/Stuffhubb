@@ -9,5 +9,7 @@
 			@include('photos.partials._form')
 		</div>
 	{!! Form::close() !!}
+	
+	{!! Html::script('js/photos/display_photos.js') !!}
 
 @endsection
