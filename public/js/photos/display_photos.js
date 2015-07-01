@@ -1,32 +1,37 @@
 /**
  * Function displays the current selected photo in form
  * for user preview
+ * @var DOM output - output to div with id = photoDisplay
+ * @var DOM photoInput - input file form
+ * 	need Form::label in order to use DOM on Form::file
+ * 
  */
 
 $(document).ready(function displayPhotos() {
 
 	var output = document.getElementById('photoDisplay');
-	var photoUpload = document.getElementById('photoUpload');
-	var photoInput = document.getElementById('photoInput');
-	
+	var photoInput = document.getElementById('file_0');
+	/**
+	 * Function add event listener to Form::file 'file_0'
+	 * event "change" - when chosen photo file changes
+	 * display the photo in the output area
+	 * @var object file - input photo in Form::file 'file_0'
+	 * @var reader reader - new FileReader
+	 *
+	 */
 	photoInput.addEventListener('change', function() {
-		// var file = photoInput.value;
-		// var file = photoInput.value;
 		var file = photoInput.files[0];
-
 		var reader = new FileReader();
+		/**
+		 * @param e - ?
+		 * @var image img - new image
+		 */
 		reader.onload = function(e) {
-			output.innerHTML = "";
-
-			var img = new Image();
+			output.innerHTML = ""; // initialize output area
+			var img = new Image(); 
 			img.src = reader.result;
-
 			output.appendChild(img);
 		}
-
 		reader.readAsDataURL(file);
-
-		// console.log(files);
-		// output.innerHTML = "hello";
 	});
 });
