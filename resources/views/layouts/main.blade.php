@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Stuffhubb</title>
         <link rel="stylesheet" href="{!! asset('css/foundation.css') !!}" />
+        <link rel="stylesheet" href="{!! asset('css/foundation-icons.css') !!}" />
         <script src="{!! asset('js/vendor/modernizr.js') !!}"></script>
     </head>
 

@@ -6,7 +6,6 @@
  * 	need Form::label in order to use DOM on Form::file
  * 
  */
-
 $(document).ready(function displayPhotos() {
 
 	var output = document.getElementById('photoDisplay');
