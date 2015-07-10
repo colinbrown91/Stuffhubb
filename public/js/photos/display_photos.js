@@ -15,22 +15,31 @@ $(document).ready(function displayPhotos() {
 	 * event "change" - when chosen photo file changes
 	 * display the photo in the output area
 	 * @var object file - input photo in Form::file 'file_0'
+	 * @var string imageType - image mime type
 	 * @var reader reader - new FileReader
 	 *
 	 */
 	photoInput.addEventListener('change', function() {
+		
 		var file = photoInput.files[0];
-		var reader = new FileReader();
-		/**
-		 * @param e - ?
-		 * @var image img - new image
-		 */
-		reader.onload = function(e) {
-			output.innerHTML = ""; // initialize output area
-			var img = new Image(); 
-			img.src = reader.result;
-			output.appendChild(img);
+		var imageType = /image.*/; // not sure which file types this supports
+
+		if(file.type.match(imageType) && file.size < 500000000) { // validate file type
+			var reader = new FileReader();
+			/**
+			 * @param e - ?
+			 * @var image img - new image
+			 */
+			reader.onload = function(e) {
+				output.innerHTML = ""; // initialize output area
+				var img = new Image(); 
+				img.src = reader.result;
+				output.appendChild(img);
+			}
+			reader.readAsDataURL(file);
 		}
-		reader.readAsDataURL(file);
+		else {
+			output.innerHTML = "File not supported!"
+		}
 	});
 });
