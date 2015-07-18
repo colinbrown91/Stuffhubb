@@ -88,6 +88,9 @@ class PhotoController extends Controller {
 		}
 		else { // upload photo
 			$file = Request::file('file_0'); // Use Request with Illuminate\Support\Facades\Request;		
+
+			// Resizing Image Testing
+
 			$filename = $file->getClientOriginalName(); // Get filename
 			$extension = $file->getClientOriginalExtension(); // Retrieve file extension
 
@@ -191,6 +194,28 @@ class PhotoController extends Controller {
 		return $response;
 			// ->withProduct($product)
 			// ->withProductPhoto($photo);
+	}
+
+	public function getPhotoTest($product_id)
+	{
+		$file = Request::file('file_0'); // Use Request with Illuminate\Support\Facades\Request;
+		$fileMimeType = $file->getClientMimeType();
+		$response = Response::make($file, 200); // Create response with file
+		$response->headers->set('Content-type', $fileMimeType); // set response headers
+		return 'hello';
+		$rules = array( // validation rules
+			'file_0' => 'required|max:1000|mimes:jpeg,gif,png,tiff' // max size is in kb
+		);
+		$validator = Validator::make(Input::all(), $rules); // pass input to validator
+		if($validator->fails()){ // test if input fails validation
+			return $response;
+				// ->withErrors($validator)
+				// ->withInput();
+		}
+
+		return Redirect::route('products.photos.store', [$product->id])
+				->withErrors($validator)
+				->withInput();
 	}
 
 }

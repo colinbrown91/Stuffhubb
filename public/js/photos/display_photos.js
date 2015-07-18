@@ -23,6 +23,14 @@ $(document).ready(function displayPhotos() {
 		
 		var file = photoInput.files[0];
 		var imageType = /image.*/; // not sure which file types this supports
+		var display = new Image();
+
+		// Attempted Ajax
+		// display.src =	$.ajax({
+		// 				type: "GET",
+		// 				url: "{!! action('PhotoController@getPhotoTest', 'id') !!}"
+		// 			});
+		// output.innerHTML = display; 
 
 		if(file.type.match(imageType) && file.size < 500000000) { // validate file type
 			var reader = new FileReader();

@@ -4,7 +4,11 @@
 	<h2> {!! $product->product_name !!} </h2>
 	<h2> {!! $product->price !!} </h2>
 
+	{{-- Original Code --}}
 	{!! Form::open(array('route' => ['products.photos.store', $product->id], 'files' => 'true', 'enctype' => 'multipart/form-data')) !!}
+	{{-- Test Code for Ajax in display_photos.js --}}
+	{{-- {!! Form::open(array('route' => ['products.photos.getphototest', $product->id], 'files' => 'true', 'enctype' => 'multipart/form-data')) !!} --}}
+	{{-- {!! Form::open(array('url' => URL::action('PhotoController@getPhotoTest', $product->id), 'files' => 'true', 'enctype' => 'multipart/form-data')) !!} --}}
 		<div class='form-group'>
 			@include('photos.partials._form')
 		</div>
