@@ -53,7 +53,7 @@ $(document).ready(function displayPhotos() {
 					}
 					else { // if ratios dont match, use ratios to constraint proportions
 						var new_dim = [h, w];
-						new_dim[0] = minhw; // sort out height first
+						new_dim[0] = maxhw; // sort out height first
 						new_dim[1] = new_dim[0] / old_ratio; // ratio = h / w => w = h / ratio
 						if(new_dim[1] > maxhw){ // do we still need to sort width
 							new_dim[1] = maxhw;

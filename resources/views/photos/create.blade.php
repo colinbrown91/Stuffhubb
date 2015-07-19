@@ -15,10 +15,11 @@
 	{!! Form::close() !!}
 
 	<div class="row" id="photoEdit">
-		<div class="small-10 columns" id="photoDisplay">
+		{{-- <div class="small-10 columns" id="photoDisplay"> --}}
+		<div id="photoDisplay">
 
 		</div>
-		<div class="small-2 columns" id="photoAcceptable">
+		{{-- <div class="small-2 columns" id="photoAcceptable">
 			<div class="row">
 				<div class="small-1 columns" id="photoAcceptable">
 					<i class="fi-check" style="font-size:36px; color:#33CC33"> </i>
@@ -35,7 +36,7 @@
 					<i class="fi-x-circle" style="font-size:36px; color:#800000"></i>
 				</div>
 			</div> 
-		</div>
+		</div> --}}
 	</div>
 
 

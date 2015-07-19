@@ -17,7 +17,7 @@ function resizePhotos(photo) {
 	}
 	else {
 		var new_dim = [h, w];
-		new_dim[0] = minhw;
+		new_dim[0] = maxhw;
 		new_dim[1] = new_dim[0] / old_ratio;
 		if(new_dim[1] > maxhw){
 			new_dim[1] = maxhw;
