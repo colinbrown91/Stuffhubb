@@ -73,7 +73,7 @@ class PhotoController extends Controller {
 	{
 		$product = Product::findOrFail($product_id); // retrieve product that photo will belong to
 		$rules = array( // validation rules
-			'file_0' => 'required|max:1000|mimes:jpeg,gif,png,tiff' // max size is in kb
+			'file_0' => 'required|mimes:jpeg,gif,png,tiff' // max size is in kb
 		);
 		$validator = Validator::make(Input::all(), $rules); // pass input to validator
 		if($validator->fails()){ // test if input fails validation
@@ -93,9 +93,18 @@ class PhotoController extends Controller {
 			$extension = $file->getClientOriginalExtension(); // Retrieve file extension
 
 			// Resizing Image Testing
-			// $file = resizePhotos($file, $filename, $extension);
+			$img = Image::make($file->getRealPath());
+			$img = PhotoController::resizePhotos($img, $filename, $extension);
+			// post image resize validation rules
+			// if($file->size() > 1000){ // test if file is still too large
+			// 	return Redirect::route('products.photos.create', [$product->id])
+			// 		->withMessage('File too large')
+			// 		->withInput();
+			// }
 
-			Storage::disk('productPictures')->put($file->getFilename().'.'.$extension, File::get($file)); // store photo
+			$path = storage_path().'/app/productImages/'.$file->getFilename().'.'.$extension;
+			// Storage::disk('productPictures')->put($file->getFilename().'.'.$extension, File::get($file)); // store photo
+			$img->save($path);
 			$photo = new ProductPhoto(); // create new photo object
 			$photo->product_id = $product_id; // store product_id
 			$photo->mime = $file->getClientMimeType(); // store mime type
@@ -178,7 +187,7 @@ class PhotoController extends Controller {
 
 		// $photo = ProductPhoto::findOrFail($photo_id);
 		$file = Storage::disk('productPictures')->get($photo->filename); // Get file from storage
-
+		// Storage disk defined in config/filesystems.php
 		// $image = Image::make('$file');
 
 		// $file_path = storage_path().'/app/productImages'.$file;
@@ -219,13 +228,13 @@ class PhotoController extends Controller {
 				->withInput();
 	}
 
-	public function resizePhotos ($file, $filename, $extension) {// function to resize images that are too large
-		function resize_image($img, $newht, $newwt) { // function final resize and return img
-			$img->resize($newht, $newwt);
-			return $img;
-		};
+	public function resizePhotos($img, $filename, $extension) {// function to resize images that are too large
+		// function resize_image($img, $newht, $newwt) { // function final resize and return img
+		// 	$img->resize($newht, $newwt);
+		// 	return $img;
+		// };
 
-		$img = Image::make($file);
+		// $img = Image::make($file);
 
 		$w = $img->width(); // get dims of original img
 		$h = $img->height(); 
@@ -238,17 +247,22 @@ class PhotoController extends Controller {
 			$min_ratio = $minhw / $minhw; // ratio of min dims
 
 			if ($old_ratio === $min_ratio) { // if ratios match
-				return resize_image($img, $minhw, $minhw); // return img with min h/w
+				return $img->resize($minhw, $minhw); // return img with min h/w
 			}
-			else { // if ratios dont match, use ratios to constraint proportions
-				$new_dim = [$h, $w];
-				$new_dim[0] = $minhw; // sort out height first
-				$new_dim[1] = $new_dim[0] / $old_ratio; // ratio = h / w => w = h / ratio
-				if($new_dim[1] > $maxhw){ // do we still need to sort width
-					$new_dim[1] = $maxhw;
-					$new_dim[0] = $new_dim[1] * $old_ratio; // h = w * ratio
-				}
-				return resize_image($img, $new_dim[0], $new_dim[1]);
+			// else { // if ratios dont match, use ratios to constraint proportions
+			// 	$new_dim = [$h, $w];
+			// 	$new_dim[0] = $minhw; // sort out height first
+			// 	$new_dim[1] = $new_dim[0] / $old_ratio; // ratio = h / w => w = h / ratio
+			// 	if($new_dim[1] > $maxhw){ // do we still need to sort width
+			// 		$new_dim[1] = $maxhw;
+			// 		$new_dim[0] = $new_dim[1] * $old_ratio; // h = w * ratio
+			// 	}
+			// 	return resize_image($img, $new_dim[0], $new_dim[1]);
+			// }
+			else {
+				return $img->resize($maxhw, null, function($constraint){
+					$constraint->aspectRatio();
+				});
 			}
 		}
 	}
