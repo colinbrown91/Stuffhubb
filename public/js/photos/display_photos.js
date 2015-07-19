@@ -33,7 +33,39 @@ $(document).ready(function displayPhotos() {
 		// output.innerHTML = display; 
 
 		if(file.type.match(imageType) && file.size < 500000000) { // validate file type
+			var resizePhotos = function(img) { // function to resize images that are too large
+				var resize_image = function(img, newht, newwt) { // function final resize and return img
+					img.height = newht;
+					img.width = newwt;
+					return img;
+				};
+
+				var w = img.width, h = img.height; // get dims of original img
+				var maxhw = 320, minhw = 240; // max dims
+
+				if (h > maxhw || w > maxhw) { // if image is too large
+
+					var old_ratio = h / w; // ratio of original dims
+					var min_ratio = minhw / minhw; // ratio of min dims
+
+					if (old_ratio === min_ratio) { // if ratios match
+						return resize_image(img, minhw, minhw); // return img with min h/w
+					}
+					else { // if ratios dont match, use ratios to constraint proportions
+						var new_dim = [h, w];
+						new_dim[0] = minhw; // sort out height first
+						new_dim[1] = new_dim[0] / old_ratio; // ratio = h / w => w = h / ratio
+						if(new_dim[1] > maxhw){ // do we still need to sort width
+							new_dim[1] = maxhw;
+							new_dim[0] = new_dim[1] * old_ratio; // h = w * ratio
+						}
+						return resize_image(img, new_dim[0], new_dim[1]);
+					}
+				}
+			};
+
 			var reader = new FileReader();
+
 			/**
 			 * @param e - ?
 			 * @var image img - new image
@@ -42,6 +74,7 @@ $(document).ready(function displayPhotos() {
 				output.innerHTML = ""; // initialize output area
 				var img = new Image(); 
 				img.src = reader.result;
+				img = resizePhotos(img);
 				output.appendChild(img);
 			}
 			reader.readAsDataURL(file);
@@ -50,4 +83,8 @@ $(document).ready(function displayPhotos() {
 			output.innerHTML = "File not supported!"
 		}
 	});
+
+	
 });
+
+

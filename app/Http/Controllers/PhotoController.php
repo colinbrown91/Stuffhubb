@@ -71,6 +71,7 @@ class PhotoController extends Controller {
 	 */
 	public function store($product_id)
 	{
+		$product = Product::findOrFail($product_id); // retrieve product that photo will belong to
 		$rules = array( // validation rules
 			'file_0' => 'required|max:1000|mimes:jpeg,gif,png,tiff' // max size is in kb
 		);
@@ -80,7 +81,6 @@ class PhotoController extends Controller {
 				->withErrors($validator)
 				->withInput();
 		}
-		$product = Product::findOrFail($product_id); // retrieve product that photo will belong to
 		$photos = $product->productPhotos()->get(); // retrieve current product photos
 		if(count($photos) >= 3){ // If there are three or more photos for this product do not upload
 			return Redirect::route('products.show', $product->id)
@@ -89,10 +89,11 @@ class PhotoController extends Controller {
 		else { // upload photo
 			$file = Request::file('file_0'); // Use Request with Illuminate\Support\Facades\Request;		
 
-			// Resizing Image Testing
-
 			$filename = $file->getClientOriginalName(); // Get filename
 			$extension = $file->getClientOriginalExtension(); // Retrieve file extension
+
+			// Resizing Image Testing
+			// $file = resizePhotos($file, $filename, $extension);
 
 			Storage::disk('productPictures')->put($file->getFilename().'.'.$extension, File::get($file)); // store photo
 			$photo = new ProductPhoto(); // create new photo object
@@ -218,4 +219,40 @@ class PhotoController extends Controller {
 				->withInput();
 	}
 
+	public function resizePhotos ($file, $filename, $extension) {// function to resize images that are too large
+		function resize_image($img, $newht, $newwt) { // function final resize and return img
+			$img->resize($newht, $newwt);
+			return $img;
+		};
+
+		$img = Image::make($file);
+
+		$w = $img->width(); // get dims of original img
+		$h = $img->height(); 
+		$maxhw = 320; // max dims
+		$minhw = 240; 
+
+		if ($h > $maxhw || $w > $maxhw) { // if image is too large
+
+			$old_ratio = $h / $w; // ratio of original dims
+			$min_ratio = $minhw / $minhw; // ratio of min dims
+
+			if ($old_ratio === $min_ratio) { // if ratios match
+				return resize_image($img, $minhw, $minhw); // return img with min h/w
+			}
+			else { // if ratios dont match, use ratios to constraint proportions
+				$new_dim = [$h, $w];
+				$new_dim[0] = $minhw; // sort out height first
+				$new_dim[1] = $new_dim[0] / $old_ratio; // ratio = h / w => w = h / ratio
+				if($new_dim[1] > $maxhw){ // do we still need to sort width
+					$new_dim[1] = $maxhw;
+					$new_dim[0] = $new_dim[1] * $old_ratio; // h = w * ratio
+				}
+				return resize_image($img, $new_dim[0], $new_dim[1]);
+			}
+		}
+	}
+
 }
+
+
