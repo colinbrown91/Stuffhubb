@@ -2,6 +2,7 @@
 
 use App\User;
 use View;
+use Auth;
 
 
 class HomeController extends Controller {
@@ -32,17 +33,20 @@ class HomeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index($id)
+	public function index()
 	{
 
 		//
-		$user = User::findOrFail($id); //will return Model Not Found Exception Error if $id isnt found
-		return View::make('home')->withUser('$user');
+		// $user = Auth::loginUsingId();
+		// $user = Auth::user();
+		// $user = User::findOrFail($id); //will return Model Not Found Exception Error if $id isnt found
+		// return View::make('home')->withUser('$user');
 		// $name = User::get('name');
 		// $user = new User();
 		// $user->name = $name;
 		// $user->save();
 		// return view('home')->withUser('$user');
+		return View::make('home');
 	}
 
 }

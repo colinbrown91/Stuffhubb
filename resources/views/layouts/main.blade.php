@@ -30,7 +30,7 @@
                 <li><a href="{{ url('/profile') }}">PROFILE</a></li>
                 <li><a href="{{ url('/products') }}">PRODUCTS</a></li>
                 {{-- clicking log out will log out user --}}
-                <li> <a href="{{url('/auth/login')}}">  LOG OUT </a></li> 
+                <li> <a href="{{url('/auth/logout')}}">  LOG OUT </a></li> 
                 <li><a href="{{ url('/auth/register') }}">SIGN UP</a></li>
                 <li><a href="{{ url('/auth/login') }}">LOG IN</a></li>
                 <li class="active"><a href="{{ url('#') }}">LIST</a></li> --}}

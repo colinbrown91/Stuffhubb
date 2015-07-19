@@ -8,7 +8,8 @@
 				<div class="panel-heading">Home</div>
 
 				<div class="panel-body">
-					You are logged in {!!$user->name!!}!
+					Welcome, {!!  $user = Auth::user()->name !!}
+					{{-- You are logged in {!!$user->name!!}! --}}
 				</div>
 			</div>
 		</div>

@@ -52,6 +52,9 @@
 								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
 							</div>
 						</div>
+
+						<p>Don't have an accout? <a href="{{ url('/auth/register') }}">Sign up!</a></p>
+						
 					</form>
 				</div>
 			</div>
