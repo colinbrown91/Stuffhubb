@@ -27,7 +27,8 @@
             <!-- Right Nav Section -->
             <ul class="right">
                 <li><a href="{{ url('/about') }}">ABOUT</a></li>
-                <li><a href="{{ url('/profile') }}">PROFILE</a></li>
+                {{-- <li><a href="{{ url('/user/show') }}">PROFILE</a></li> --}}
+                <li>{!! link_to_route('user.show' , 'PROFILE' , [Auth::user()->id])!!}</li>
                 <li><a href="{{ url('/products') }}">PRODUCTS</a></li>
                 {{-- clicking log out will log out user --}}
                 <li> <a href="{{url('/auth/logout')}}">  LOG OUT </a></li> 

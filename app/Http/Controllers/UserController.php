@@ -50,7 +50,8 @@ class UserController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$user = User::findOrFail($id);
+		return View::make('user.show')->withUser($user);
 	}
 
 	/**
