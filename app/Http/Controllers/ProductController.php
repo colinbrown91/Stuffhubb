@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Product;
+use App\User;
 use App\Tests;
 
 use View;
@@ -33,10 +34,10 @@ class ProductController extends Controller {
 	 * @return Response
 	 *  with @var products
 	 */
-	public function index()
+	public function index($user_id)
 	{
-		//
-		$products = Product::all();
+		$user = User::findOrFail($user_id);
+		$products = $user->products()->get();
 		return View::make('products.index')
 			->with('products', $products);
 	}
@@ -46,10 +47,12 @@ class ProductController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($user_id)
 	{
-		return View::make('products.create');
+		$user = User::findOrFail($user_id);
+		return View::make('products.create')->withUser($user);
 	}
+
 
 	/**
 	 * Store a newly created resource in storage.
@@ -61,9 +64,9 @@ class ProductController extends Controller {
 	 * @return Response
 	 *  with message
 	 */
-	public function store()
+	public function store($user_id)
 	{
-		
+		$user = User::findOrFail($user_id); // retrieve product that photo will belong to
 		// Validation
 		// define rules
 		$rules = array(
@@ -96,7 +99,7 @@ class ProductController extends Controller {
 		 */
 
 		// Get inputs from create form
-		$product_name = Input::get('name');
+		$product_name = Input::get('product_name');
 		$product_price = Input::get('price');
 		// $file = Request::file('file_0');
 		// $product_picture_filename = $file->getClientOriginalName();
@@ -133,7 +136,7 @@ class ProductController extends Controller {
 	public function show($id)
 	{
 		$product = Product::findOrFail($id);
-		$photos = $product->productPhotos()->get();
+		$photos = $product->productPhotos()->get(); // productPhotos() function in Product Model
 		return View::make('products.show')
 			->withProduct($product)
 			->withPhotos($photos);

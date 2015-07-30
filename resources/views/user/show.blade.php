@@ -19,7 +19,8 @@
 				<div class="small-2 columns">
 					<ul class="side-nav">
 						<li><a href="#">Section 1</a></li>
-						<li><a href="#">Section 2</a></li>
+{{-- 						<li><a href="{{ url('/products') }}">Products</a></li> --}}			
+						{{-- <li> {!! link_to_route('users.products.create', 'product', [$user->id], ['class' => 'button success'])  !!} </li>	 --}}
 						<li><a href="#">Section 3</a></li>
 						<li><a href="#">Section 4</a></li>
 						<li><a href="#">Section 5</a></li>

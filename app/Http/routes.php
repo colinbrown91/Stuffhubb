@@ -20,12 +20,12 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::resource('products','ProductController');
+Route::resource('user.products','ProductController');
 Route::resource('user','UserController');
-Route::get('products/photos/getphoto/{photo_id}', ['uses' => 'PhotoController@getPhoto', 'as' => 'products.photos.getphoto']);
+Route::get('user/products/photos/getphoto/{photo_id}', ['uses' => 'PhotoController@getPhoto', 'as' => 'user.products.photos.getphoto']);
 // Test route for ajax
 // Route::post('products/photos/getphototest/{product_id}', ['uses' => 'PhotoController@getPhotoTest', 'as' => 'products.photos.getphototest']); 
-Route::resource('products.photos', 'PhotoController');
+Route::resource('user.products.photos', 'PhotoController');
 
 Route::get('/about','AboutController@index');
 

@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration {
 		{
 			$table->increments('id');
 			//$table->string('user_name');
+			$table->integer('user_id');
 			$table->string('product_name');
 			$table->float('price');
 			$table->string('original_filename');
