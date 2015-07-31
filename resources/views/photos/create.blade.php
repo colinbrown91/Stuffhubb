@@ -5,7 +5,7 @@
 	<h2> {!! $product->price !!} </h2>
 
 	{{-- Original Code --}}
-	{!! Form::open(array('route' => ['products.photos.store', $product->id], 'files' => 'true', 'enctype' => 'multipart/form-data')) !!}
+	{!! Form::open(array('route' => ['user.products.photos.store', $product->id], 'files' => 'true', 'enctype' => 'multipart/form-data')) !!}
 	{{-- Test Code for Ajax in display_photos.js --}}
 	{{-- {!! Form::open(array('route' => ['products.photos.getphototest', $product->id], 'files' => 'true', 'enctype' => 'multipart/form-data')) !!} --}}
 	{{-- {!! Form::open(array('url' => URL::action('PhotoController@getPhotoTest', $product->id), 'files' => 'true', 'enctype' => 'multipart/form-data')) !!} --}}

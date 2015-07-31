@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use View;
 use App\User;
+use App\Product;
+
 class UserController extends Controller {
 
 
@@ -51,7 +53,7 @@ class UserController extends Controller {
 	public function show($id)
 	{
 		$user = User::findOrFail($id);
-		$products = $user->product()->get();
+		$products = $user->products()->get();
 		return View::make('user.show')
 			->withUser($user)
 			->withProducts($products);

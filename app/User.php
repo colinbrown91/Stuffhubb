@@ -21,7 +21,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	{
 		return $this->hasOne('App\Profile');
 	}
-
+	/**
+     * The delete function of this model.
+     * Capture all children of the parent when deleting.
+     * 
+     */
+	public function delete()
+	{
+		Product::where('user_id', $this->id)->delete();
+		parent::delete();
+	}
 
 
 	/**

@@ -39,7 +39,8 @@ class ProductController extends Controller {
 		$user = User::findOrFail($user_id);
 		$products = $user->products()->get();
 		return View::make('products.index')
-			->with('products', $products);
+			->with('products', $products)
+			->withUser($user);
 	}
 
 	/**
@@ -50,7 +51,8 @@ class ProductController extends Controller {
 	public function create($user_id)
 	{
 		$user = User::findOrFail($user_id);
-		return View::make('products.create')->withUser($user);
+		return View::make('products.create')
+			->withUser($user);
 	}
 
 
@@ -66,7 +68,8 @@ class ProductController extends Controller {
 	 */
 	public function store($user_id)
 	{
-		$user = User::findOrFail($user_id); // retrieve product that photo will belong to
+		// retrieve user that product will belong to
+		$user = User::findOrFail($user_id); 
 		// Validation
 		// define rules
 		$rules = array(
@@ -80,9 +83,10 @@ class ProductController extends Controller {
 		if($validator->fails()){
 			// $messages = $validator->messages();
 			// return $messages;
-			return Redirect::route('products.create')->withErrors($validator)->withInput();
+			return Redirect::route('user.products.create')
+				->withErrors($validator)
+				->withInput();
 		}
-		// $bool0 = 0;
 
 		/** 
 		 * the following line is for testing purposes
@@ -114,6 +118,8 @@ class ProductController extends Controller {
 		$product->product_name = $product_name;
 		// Price
 		$product->price = $product_price;
+		// User
+		$product->user_id = $user->id;
 		// Picture URLs
 		// $product->original_filename = $product_picture_filename;
 		// Save 
@@ -121,7 +127,7 @@ class ProductController extends Controller {
 		// Upload photos
 		// Redirect::route('products.files.store');
 		// Redirect to Index View with successful creation message
-		return Redirect::route('products.index')
+		return Redirect::route('user.products.index', $user->id)
 			->withMessage('Product was created!');
 	}
 
@@ -136,7 +142,7 @@ class ProductController extends Controller {
 	public function show($id)
 	{
 		$product = Product::findOrFail($id);
-		$photos = $product->productPhotos()->get(); // productPhotos() function in Product Model
+		$photos = $product->productPhotos()->get(); // productPhotos() in Product Model
 		return View::make('products.show')
 			->withProduct($product)
 			->withPhotos($photos);
@@ -177,7 +183,9 @@ class ProductController extends Controller {
 		if($validator->fails()){
 			// $messages = $validator->messages();
 			// return $messages;
-			return Redirect::route('products.create')->withErrors($validator)->withInput();
+			return Redirect::route('user.products.create')
+				->withErrors($validator)
+				->withInput();
 		}
 		
 				// $bool0 = 0;
@@ -219,7 +227,7 @@ class ProductController extends Controller {
 		// Upload photos
 		// Redirect::route('products.files.store');
 		// Redirect to Index View with successful creation message
-		return Redirect::route('products.index')
+		return Redirect::route('user.products.index')
 			->withMessage('Product was updated!');
 	}
 
@@ -231,11 +239,12 @@ class ProductController extends Controller {
 	 * @return Response
 	 *  with message
 	 */
-	public function destroy($id)
+	public function destroy($user_id, $product_id)
 	{
-		$product = Product::findOrFail($id)->delete();
+		$product = Product::findOrFail($product_id)->delete();
 
-		return Redirect::route('products.index')->withMessage('Item Deleted');
+		return Redirect::route('user.products.index', $user_id)
+			->withMessage('Item Deleted');
 	}
 
 }

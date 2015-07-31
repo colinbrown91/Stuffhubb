@@ -10,7 +10,7 @@ class Product extends Model {
      * @return this - user that the product belongs to.
      *
 	 */
-	public function user()
+	public function User()
 	{
 		return $this->belongsTo('App\User');
 	}

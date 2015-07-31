@@ -53,7 +53,8 @@ class PhotoController extends Controller {
 	public function create($product_id)
 	{
 		$product = Product::findOrFail($product_id);
-		return View::make('photos.create')->withProduct($product);
+		return View::make('photos.create')
+			->withProduct($product);
 	}
 
 	/**
@@ -77,13 +78,13 @@ class PhotoController extends Controller {
 		);
 		$validator = Validator::make(Input::all(), $rules); // pass input to validator
 		if($validator->fails()){ // test if input fails validation
-			return Redirect::route('products.photos.create', [$product->id])
+			return Redirect::route('user.products.photos.create', [$product->id])
 				->withErrors($validator)
 				->withInput();
 		}
 		$photos = $product->productPhotos()->get(); // retrieve current product photos
 		if(count($photos) >= 3){ // If there are three or more photos for this product do not upload
-			return Redirect::route('products.show', $product->id)
+			return Redirect::route('user.products.show', $product->id)
 				->withMessage('This product has too many photos. Delete a photo before adding a new one.');
 		}
 		else { // upload photo
@@ -112,7 +113,7 @@ class PhotoController extends Controller {
 			$photo->filename = $file->getFilename().'.'.$extension; // store storage filename
 			$product->productPhotos()->save($photo); // save photo object
 
-			return Redirect::route('products.show', $product->id)
+			return Redirect::route('user.products.show', $product->id)
 				->withMessage('Photo Added');
 		}
 		
@@ -166,7 +167,7 @@ class PhotoController extends Controller {
 		Storage::disk('productPictures')->delete($photo_filename); // delete file from storage
 		$photo->delete(); // delete photo object
 
-		return Redirect::route('products.show', $product_id)
+		return Redirect::route('user.products.show', $product_id)
 			->withMessage('Photo Deleted');
 	}
 
@@ -223,7 +224,7 @@ class PhotoController extends Controller {
 				// ->withInput();
 		}
 
-		return Redirect::route('products.photos.store', [$product->id])
+		return Redirect::route('user.products.photos.store', [$product->id])
 				->withErrors($validator)
 				->withInput();
 	}
