@@ -28,6 +28,7 @@
 					</ul>
 				</div>
 				<div class="large-10 columns">
+					
 					<form role="form" method="POST" action="{{ url('/auth/register') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 

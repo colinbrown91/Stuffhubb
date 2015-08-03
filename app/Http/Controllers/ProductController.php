@@ -139,11 +139,12 @@ class ProductController extends Controller {
 	 *  with @var product
 	 *  with @var photos
 	 */
-	public function show($id)
+	public function show($user_id, $product_id)
 	{
-		$product = Product::findOrFail($id);
+		$product = Product::findOrFail($product_id);
 		$photos = $product->productPhotos()->get(); // productPhotos() in Product Model
 		return View::make('products.show')
+			->withUserId($user_id)
 			->withProduct($product)
 			->withPhotos($photos);
 	}
@@ -156,10 +157,12 @@ class ProductController extends Controller {
 	 * @return Response
 	 *  with @var product
 	 */
-	public function edit($id)
+	public function edit($user_id, $product_id)
 	{
-		$product = Product::findOrFail($id);
-		return View::make('products.edit')->withProduct($product);
+		$product = Product::findOrFail($product_id);
+		return View::make('products.edit')
+			->withProduct($product)
+			->withUserId($user_id);
 	}
 
 	/**

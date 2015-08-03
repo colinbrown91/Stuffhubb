@@ -33,3 +33,6 @@ Route::get('/db', function(){
 	return DB::select('select database();');
 });
 
+Route::get('/search', function() {
+	return view('search.search');
+});

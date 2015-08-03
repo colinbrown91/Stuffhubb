@@ -29,7 +29,8 @@
                 <li><a href="{{ url('/about') }}">ABOUT</a></li>
                 {{-- <li><a href="{{ url('/user/show') }}">PROFILE</a></li> --}}
                 <li>{!! link_to_route('user.show' , 'PROFILE' , [Auth::user()->id])!!}</li>
-                <li><a href="{{ url('/products') }}">PRODUCTS</a></li>
+                {{-- <li><a href="{{ url('/products') }}">PRODUCTS</a></li> --}}
+                <li>{!! link_to_route('user.products.index' , 'PRODUCTS' , [Auth::user()->id])!!}</li>
                 {{-- clicking log out will log out user --}}
                 <li> <a href="{{url('/auth/logout')}}">  LOG OUT </a></li> 
                 <li><a href="{{ url('/auth/register') }}">SIGN UP</a></li>
