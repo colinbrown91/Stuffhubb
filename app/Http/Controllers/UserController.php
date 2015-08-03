@@ -21,7 +21,7 @@ class UserController extends Controller {
 	{
 		//
 		$user = User::findOrFail($id);
-		return View::make('user.index')->withUser($user);
+		return View::make('user.dashboard')->withUser($user);
 	}
 
 	/**

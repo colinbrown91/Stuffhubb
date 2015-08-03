@@ -1,93 +1,71 @@
-<!doctype html>
-<html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Stuffhubb</title>
-        <link rel="stylesheet" href="{!! asset('css/foundation.css') !!}" />
-        <link rel="stylesheet" href="{!! asset('css/foundation-icons.css') !!}" />
-        <script src="{!! asset('js/vendor/modernizr.js') !!}"></script>
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Metzelhoff | @yield('title')</title>
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+      <link rel="stylesheet" href="css/metzelhoff.css">
+	</head>
+	<body>
 
-<body>
-    
-    <!-- Header and Nav -->
-    {{-- check if user is authenticated --}}
-    @if (Auth::check())
-        <nav class="top-bar" data-topbar role="navigation">
-          <ul class="title-area">
-            <li class="name" >
-              <h1><a href="{{ url('/') }}">StuffHubb</a></h1>
-            </li>
-             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-          </ul>
+<!-- xxxxxx -->
+<!-- Navbar -->
+<!-- xxxxxx -->
 
-        <section class="top-bar-section">
-            <!-- Right Nav Section -->
-            <ul class="right">
-                <li><a href="{{ url('/about') }}">ABOUT</a></li>
-                {{-- <li><a href="{{ url('/user/show') }}">PROFILE</a></li> --}}
-                <li>{!! link_to_route('user.show' , 'PROFILE' , [Auth::user()->id])!!}</li>
-                {{-- <li><a href="{{ url('/products') }}">PRODUCTS</a></li> --}}
-                <li>{!! link_to_route('user.products.index' , 'PRODUCTS' , [Auth::user()->id])!!}</li>
-                {{-- clicking log out will log out user --}}
-                <li> <a href="{{url('/auth/logout')}}">  LOG OUT </a></li> 
-                <li><a href="{{ url('/auth/register') }}">SIGN UP</a></li>
-                <li><a href="{{ url('/auth/login') }}">LOG IN</a></li>
-                <li class="active"><a href="{{ url('#') }}">LIST</a></li> --}}
-            </ul>
-            <!-- Left Nav Section -->
-            <ul class="left">
-              <li><a href="#">Left Nav Button</a></li>
-            </ul>
-          </section> 
-        </nav>
-    @else 
-        <nav class="top-bar" data-topbar role="navigation">
-            <div class="row" class="name">
-              <div class="small-1 small-centered columns">
-                  <ul class="title-area">
-                    <li class="name">
-                      <h1><font color="white">StuffHubb</font></h1>
-                    </li>
-                  </ul>
-              </div>
+
+      <nav class="navbar navbar-inverse navbar-static-top">
+         <div class="container">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" href="/search">Stuffhubb</a>
             </div>
-        </nav>
-    @endif
+            <div id="navbar" class="navbar-collapse collapse">
+               <form class="navbar-form navbar-left">
+                  <div class="form-group">
+                     <input type="text" placeholder="Search" class="form-control">
+                  </div>
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+               </form>
+               <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="badge">14</span> Kayak Co. <span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                        <li><a href="/dashboard">List</a></li>
+                        <li><a href="/dashboard">Rent</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/sign_in"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+                     </ul>
+                  </li>
+               </ul>
+            </div><!--/.navbar-collapse -->
+         </div> 
+      </nav>
 
-    <!-- End Header and Nav -->
 
-    @if (Session::has('message'))
-        <div class="alert-box success">
-            {{{ Session::get('message') }}}
-        </div>
-    @endif
-
-    <div class="row">
-        <div class="large-12">
-            @yield('content')
-        </div>
-    </div>
+<!-- xxxxxxx -->
+<!-- Content -->
+<!-- xxxxxxx -->
 
 
- 
-    <footer class="row">
-        <div class="large-12 columns">
-            <hr />
-            <div class="row">
-                <div class="large-12 columns">
-                    <p><center>©StuffHubb</center></p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-    <script type="text/javascript" src="{!! asset('/js/vendor/jquery.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('/js/foundation.min.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('/js/app.js') !!}"></script>
-    <script> $(document).foundation(); </script>
+   <div class="container">
 
-    </body>
+
+		@yield('content')
+
+
+   </div>
+
+
+		<script src="js/jquery.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+	</body>
 </html>
