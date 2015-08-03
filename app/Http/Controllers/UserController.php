@@ -54,7 +54,7 @@ class UserController extends Controller {
 	{
 		$user = User::findOrFail($id);
 		$products = $user->products()->get();
-		return View::make('user.show')
+		return View::make('user.dashboard')
 			->withUser($user)
 			->withProducts($products);
 
