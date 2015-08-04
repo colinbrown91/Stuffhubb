@@ -88,9 +88,41 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function getAccount($id)
 	{
-		//
+		$user = User::findOrFail($id);
+		return View::make('user.account')->withUser($user);
+	}
+
+	public function getDashboard($id)
+	{
+		$user = User::findOrFail($id);
+		return View::make('user.dashboard')->withUser($user);
+	}
+	public function getHelp($id)
+	{
+		$user = User::findOrFail($id);
+		return View::make('user.help')->withUser($user);
+	}
+	public function getPerformance($id)
+	{
+		$user = User::findOrFail($id);
+		return View::make('user.performance')->withUser($user);
+	}
+	public function getProfile($id)
+	{
+		$user = User::findOrFail($id);
+		return View::make('user.profile')->withUser($user);
+	}
+	public function getSettings($id)
+	{
+		$user = User::findOrFail($id);
+		return View::make('user.settings')->withUser($user);
+	}
+	public function getTransactions($id)
+	{
+		$user = User::findOrFail($id);
+		return View::make('user.transactions')->withUser($user);
 	}
 
 }
