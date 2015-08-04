@@ -54,6 +54,7 @@
                         <li><a href="{{url('/auth/logout')}}"> <i class="fa fa-sign-out"></i> Sign Out</a></li>
                        @else
                         <li><a href="{{url('/auth/login')}}"> <i class="fa fa-sign-out"></i> Sign In</a></li>
+                        <li><a href="{{url('/auth/register')}}"> <i class="fa fa-sign-out"></i> Sign Up</a></li>
                        @endif
                      </ul>
                   </li>
