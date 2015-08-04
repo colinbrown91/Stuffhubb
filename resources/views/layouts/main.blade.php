@@ -4,10 +4,12 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Metzelhoff | @yield('title')</title>
-		<link rel="stylesheet" href="{!! asset('css/normalize.css') !!}">
-		<link rel="stylesheet" href="{!! asset('bootstrap/css/bootstrap.min.css') !!}">
-		<link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.min.css') !!}">
+		<title>Stuffhubb | @yield('title')</title>
+
+      <link rel="stylesheet" href="/css/normalize.css">
+      <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
 	</head>
 	<body>
 
@@ -36,12 +38,23 @@
                </form>
                <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="badge">14</span> Kayak Co. <span class="caret"></span></a>
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="badge">14
+                     </span> 
+                        @if (Auth::check()) 
+                           {!!  Auth::user()->name !!}
+                        @else
+                           New User
+                        @endif
+                     <span class="caret"></span></a>
                      <ul class="dropdown-menu">
+                        @if (Auth::check())
                         <li><a href="/dashboard">List</a></li>
                         <li><a href="/dashboard">Rent</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="/sign_in"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+                        <li><a href="{{url('/auth/logout')}}"> <i class="fa fa-sign-out"></i> Sign Out</a></li>
+                       @else
+                        <li><a href="{{url('/auth/login')}}"> <i class="fa fa-sign-out"></i> Sign In</a></li>
+                       @endif
                      </ul>
                   </li>
                </ul>
@@ -63,11 +76,8 @@
 
    </div>
 
-      <script type="text/javascript" src="{!! asset('/js/vendor/jquery.js') !!}"></script>
-      <script type="text/javascript" src="{!! asset('/js/app.js') !!}"></script>
-
-
-		<script src="{!! asset('js/jquery.min.js') !!}"></script> 
-		<script src="{!! asset('bootstrap/js/bootstrap.min.js') !!}"></script>
+      <script type="text/javascript" src="/js/vendor/jquery.js"></script>
+      <script type="text/javascript" src="/js/app.js"></script>
+      <script src="/bootstrap/js/bootstrap.min.js"></script>
 	</body>
 </html>

@@ -34,7 +34,7 @@ class WelcomeController extends Controller {
 	public function index()
 	{
 	
-		return View::make('welcome');
+		return View::make('about/index');
 	}
 
 }

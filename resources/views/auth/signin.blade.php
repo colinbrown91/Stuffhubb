@@ -26,7 +26,7 @@
     <div class="row">
       <div class="col-xs-offset-3 col-xs-6">
         <div class="well">
-          <h1 class="text-center">Metzelhoff</h1>
+          <h1 class="text-center">Stuffhubb</h1>
 
 
           <br>
