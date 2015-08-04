@@ -50,7 +50,7 @@
 
           		<h5 class="text-center">Sign up with your email address</h5>
           			<form class="form-horizontal">
-
+			            <br>
 					    <div class="form-group">
 			              <div class="col-xs-offset-2 col-xs-8">
 			                <input type="text" class="form-control" name="name" placeholder="Name">
