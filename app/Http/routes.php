@@ -20,13 +20,12 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('user', ['uses' => 'UserController@getAccount', 'as' => 'user.getaccount']);
-Route::get('user', ['uses' => 'UserController@getDashboard', 'as' => 'user.getdashboard']);
-Route::get('user', ['uses' => 'UserController@getHelp', 'as' => 'user.gethelp']);
-Route::get('user', ['uses' => 'UserController@getPerformance', 'as' => 'user.getperformance']);
-Route::get('user', ['uses' => 'UserController@getProfile', 'as' => 'user.getprofile']);
-Route::get('user', ['uses' => 'UserController@getSettings', 'as' => 'user.getsettings']);
-Route::get('user', ['uses' => 'UserController@getTransactions', 'as' => 'user.gettransactions']);
+Route::get('user/getaccount/{user_id}', ['uses' => 'UserController@getAccount', 'as' => 'user.getaccount']);
+Route::get('user/gethelp/{user_id}', ['uses' => 'UserController@getHelp', 'as' => 'user.gethelp']);
+Route::get('user/getperformance/{user_id}', ['uses' => 'UserController@getPerformance', 'as' => 'user.getperformance']);
+Route::get('user/getprofile/{user_id}', ['uses' => 'UserController@getProfile', 'as' => 'user.getprofile']);
+Route::get('user/getsettings/{user_id}', ['uses' => 'UserController@getSettings', 'as' => 'user.getsettings']);
+Route::get('user/gettransactions/{user_id}', ['uses' => 'UserController@getTransactions', 'as' => 'user.gettransactions']);
 Route::resource('user.products','ProductController');
 Route::resource('user','UserController');
 Route::get('user/products/photos/getphoto/{photo_id}', ['uses' => 'PhotoController@getPhoto', 'as' => 'user.products.photos.getphoto']);

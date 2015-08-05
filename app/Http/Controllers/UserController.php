@@ -46,8 +46,9 @@ class UserController extends Controller {
 
 	/**
 	 * Display the specified resource.
+	 * Display User Dashboard
 	 *
-	 * @param  int  $id
+	 * @param  int  $id - user id
 	 * @return Response
 	 */
 	public function show($id)
@@ -85,19 +86,13 @@ class UserController extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $id - user id
 	 * @return Response
 	 */
 	public function getAccount($id)
 	{
 		$user = User::findOrFail($id);
 		return View::make('user.account')->withUser($user);
-	}
-
-	public function getDashboard($id)
-	{
-		$user = User::findOrFail($id);
-		return View::make('user.dashboard')->withUser($user);
 	}
 	public function getHelp($id)
 	{

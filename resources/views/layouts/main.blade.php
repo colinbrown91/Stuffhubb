@@ -47,9 +47,10 @@
                         @endif
                      <span class="caret"></span></a>
                      <ul class="dropdown-menu">
-                        @if (Auth::check())
+                       @if (Auth::check())
                         <li><a href="/dashboard">List</a></li>
                         <li><a href="/dashboard">Rent</a></li>
+                        <li>{!! link_to_route('user.show', "Dashboard", [Auth::user()->id] ) !!}</li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{url('/auth/logout')}}"> <i class="fa fa-sign-out"></i> Sign Out</a></li>
                        @else
