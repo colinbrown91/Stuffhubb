@@ -61,7 +61,7 @@ class ProductController extends Controller {
 	 * @var array $rules 			- rules for product validation
 	 * @var validator $validator 	- validator for product objects
 	 * @var string $product_name 	- input product name
-	 * @var string $product_price 	- input product price
+	 * @var string $product_base_price 	- input product base_price
 	 * @var object $product 		- new product object
 	 * @return Response
 	 *  with message
@@ -104,7 +104,7 @@ class ProductController extends Controller {
 
 		// Get inputs from create form
 		$product_name = Input::get('product_name');
-		$product_price = Input::get('price');
+		$product_base_price = Input::get('base_price');
 		// $file = Request::file('file_0');
 		// $product_picture_filename = $file->getClientOriginalName();
 		// $product_picture_0_url = asset(Input::get('picture_0'));
@@ -116,8 +116,8 @@ class ProductController extends Controller {
 		// Set variables of new Product to values received from input form
 		// Name
 		$product->product_name = $product_name;
-		// Price
-		$product->price = $product_price;
+		// base_price
+		$product->base_price = $product_base_price;
 		// User
 		$product->user_id = $user->id;
 		// Picture URLs
@@ -209,7 +209,7 @@ class ProductController extends Controller {
 
 		// Get inputs from create form
 		$product_name = Input::get('name');
-		$product_price = Input::get('price');
+		$product_base_price = Input::get('base_price');
 		// $file = Request::file('file_0');
 		// $product_picture_filename = $file->getClientOriginalName();
 		// $product_picture_0_url = asset(Input::get('picture_0'));
@@ -221,8 +221,8 @@ class ProductController extends Controller {
 		// Set variables of new Product to values received from input form
 		// Name
 		$product->product_name = $product_name;
-		// Price
-		$product->price = $product_price;
+		// base_price
+		$product->base_price = $product_base_price;
 		// Picture URLs
 		// $product->original_filename = $product_picture_filename;
 		// Save 

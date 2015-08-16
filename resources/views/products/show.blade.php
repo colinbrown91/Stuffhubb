@@ -3,7 +3,7 @@
 
 	<div>
 		<h2> {!! $product->product_name !!} </h2>
-		<h2> {!! $product->price !!} </h2>
+		<h2> {!! $product->base_price !!} </h2>
 		{{-- <img src='$product->picture_url_0' /> --}}
 		{{-- <p> {!! image('$product->picture_url_0') !!} </p> --}}
 		@foreach ($photos as $photo)
