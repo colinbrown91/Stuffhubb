@@ -5,6 +5,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
 use View;
 use Auth;
+use App\User;
 
 class RedirectIfAuthenticated {
 
@@ -35,9 +36,10 @@ class RedirectIfAuthenticated {
 	 */
 	public function handle($request, Closure $next)
 	{
+		// $user = User::findOrFail($user_id);
 		if ($this->auth->check())
 		{
-			return new RedirectResponse(url('/user/{user}'));
+			return new RedirectResponse(url('/home')); 
 		}
 
 		return $next($request);

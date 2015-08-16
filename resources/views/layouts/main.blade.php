@@ -27,7 +27,12 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand" href="/search">Stuffhubb</a>
+                  @if (Auth::check()) 
+                     <a class="navbar-brand" href="/search">Stuffhubb</a>
+                  @else
+                     <a class="navbar-brand" href="/">Stuffhubb</a>
+                  @endif
+               
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                <form class="navbar-form navbar-left">
