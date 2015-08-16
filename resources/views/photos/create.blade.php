@@ -2,7 +2,7 @@
 @section('content')
 
 	<h2> {!! $product->product_name !!} </h2>
-	<h2> {!! $product->price !!} </h2>
+	<h2> {!! $product->base_price !!} </h2>
 
 	{{-- Original Code --}}
 	{!! Form::open(array('route' => ['user.products.photos.store', $product->id], 'files' => 'true', 'enctype' => 'multipart/form-data')) !!}
