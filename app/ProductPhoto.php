@@ -6,8 +6,8 @@ class ProductPhoto extends Model {
 
 	/**
      * The Product function of this model.
-     * Photos belong to products.
-     * @return this - product that the photo belongs to.
+     * ProductPhotos belong to products.
+     * @return this - Product that the ProductPhoto belongs to.
      *
 	 */
 	public function Product()

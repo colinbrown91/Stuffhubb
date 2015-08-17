@@ -11,15 +11,25 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	use Authenticatable, CanResetPassword;
 
 
-
+	/**
+     * The products function of this model.
+     * Users have many Products.
+     * @return this - array of Products that belong to the User.
+     *
+     */
 	public function products()
 	{
 		return $this->hasMany('App\Product');
-	}	
-
-	public function profile()
+	}
+	/**
+     * The productReservations function of this model.
+     * Users have many ProductReservations.
+     * @return this - array of ProductReservations that belong to the User.
+     *
+     */
+	public function productReservations()
 	{
-		return $this->hasOne('App\Profile');
+		return $this->hasMany('App\ProductReservation');
 	}
 	/**
      * The delete function of this model.

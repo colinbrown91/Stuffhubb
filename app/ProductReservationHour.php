@@ -2,12 +2,12 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductReservationDay extends Model {
+class ProductReservationHour extends Model {
 
 	/**
      * The productReservation function of this model.
-     * ProductReservationDays belong to ProductReservations.
-     * @return this - ProductReservation that the ProductReservationDay belongs to.
+     * ProductReservationHours belong to ProductReservations.
+     * @return this - ProductReservation that the ProductReservationHour belongs to.
      *
 	 */
 	public function productReservation()
@@ -17,8 +17,8 @@ class ProductReservationDay extends Model {
 
 	/**
      * The Product function of this model.
-     * ProductReservationDays belong to Products.
-     * @return this - Product that the ProductReservationDay belongs to.
+     * ProductReservationHours belong to Products.
+     * @return this - Product that the ProductReservationHour belongs to.
      *
 	 */
 	public function Product()

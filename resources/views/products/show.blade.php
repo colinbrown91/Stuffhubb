@@ -16,7 +16,7 @@
 						<p>{!! $photo->mime !!} </p>
 							<ul>
 								<li>
-									{!! Form::model($photo, ['route' => ['user.products.photos.destroy', $product->id, $photo->id], 'method' => 'DELETE' ]) !!}
+									{!! Form::model($photo, ['route' => ['user.products.photos.destroy', $user->id, $product->id, $photo->id], 'method' => 'DELETE' ]) !!}
                 						{!! Form::button('destroy', ['type' => 'submit', 'class' => 'tiny alert button']) !!}
             						{!! Form::close() !!}
 								</li>
@@ -25,7 +25,7 @@
 				</div>
 			</div>
 		@endforeach
-		<p> {!! link_to_route('user.products.photos.create', 'add picture', [$product->id], ['class' => 'button success'])  !!} </p>
+		<p> {!! link_to_route('user.products.photos.create', 'add picture', [$user->id, $product->id], ['class' => 'button success'])  !!} </p>
 		<p> {!! link_to_route('user.products.index', 'back', null, ['class' => 'small button']) !!} </p>
 	</div>
 

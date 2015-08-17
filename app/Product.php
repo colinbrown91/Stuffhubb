@@ -17,7 +17,7 @@ class Product extends Model {
 
 	/**
      * The productPhotos function of this model.
-     * productPhotos belong to products.
+     * Products have many ProductPhotos.
      * @return this - array of photos that belong to the product.
      *
      */
