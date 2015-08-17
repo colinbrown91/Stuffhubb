@@ -18,6 +18,7 @@
             <div class="col-md-2">
                <nav role="navigation">
                   <ul class="nav nav-pills nav-stacked">
+                     <!-- Used Html::decode to insert symbols in code -->
                      <li role="presentation">{!! Html::decode(link_to_route('user.show', '<i class="fa fa-dashboard"></i> Dashboard', [$user->id] )) !!}</li>
                      <li role="presentation" class="active">{!! Html::decode(link_to_route('user.getprofile', '<i class="fa fa-building"></i> Profile', [$user->id] )) !!}</li>
                      <li role="presentation">{!! Html::decode(link_to_route('user.getaccount', '<i class="fa fa-user"></i> Account', [$user->id] )) !!}</li>

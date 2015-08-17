@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\ProductPhoto;
 use App\Product;
+use App\User;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Request;
@@ -50,11 +51,13 @@ class PhotoController extends Controller {
 	 * @return Response
 	 *  with @var product
 	 */
-	public function create($product_id)
+	public function create($user_id, $product_id)
 	{
+		$user = User::findOrFail($user_id); 
 		$product = Product::findOrFail($product_id);
 		return View::make('photos.create')
-			->withProduct($product);
+			->withProduct($product)
+			->withUser($user);
 	}
 
 	/**
@@ -70,21 +73,22 @@ class PhotoController extends Controller {
 	 * @var photo 		- new photo object created for this product
 	 * @return Response
 	 */
-	public function store($product_id)
+	public function store($user_id, $product_id)
 	{
+		$user = User::findOrFail($user_id); 
 		$product = Product::findOrFail($product_id); // retrieve product that photo will belong to
 		$rules = array( // validation rules
 			'file_0' => 'required|mimes:jpeg,gif,png,tiff' // max size is in kb
 		);
 		$validator = Validator::make(Input::all(), $rules); // pass input to validator
 		if($validator->fails()){ // test if input fails validation
-			return Redirect::route('user.products.photos.create', [$product->id])
+			return Redirect::route('user.products.photos.create', [$user->id, $product->id])
 				->withErrors($validator)
 				->withInput();
 		}
 		$photos = $product->productPhotos()->get(); // retrieve current product photos
 		if(count($photos) >= 3){ // If there are three or more photos for this product do not upload
-			return Redirect::route('user.products.show', $product->id)
+			return Redirect::route('user.products.show', [$user->id, $product->id])
 				->withMessage('This product has too many photos. Delete a photo before adding a new one.');
 		}
 		else { // upload photo
@@ -113,7 +117,7 @@ class PhotoController extends Controller {
 			$photo->filename = $file->getFilename().'.'.$extension; // store storage filename
 			$product->productPhotos()->save($photo); // save photo object
 
-			return Redirect::route('user.products.show', $product->id)
+			return Redirect::route('user.products.show', [$user->id, $product->id])
 				->withMessage('Photo Added');
 		}
 		
@@ -160,14 +164,15 @@ class PhotoController extends Controller {
 	 * @param  int  $photo_it 	- current photo's id
 	 * @return Response
 	 */
-	public function destroy($product_id, $photo_id)
+	public function destroy($user_id, $product_id, $photo_id)
 	{
+		$user = User::findOrFail($user_id); 
 		$photo = ProductPhoto::findOrFail($photo_id); // Get photo object
 		$photo_filename = $photo->filename; // Get filename to delete in storage
 		Storage::disk('productPictures')->delete($photo_filename); // delete file from storage
 		$photo->delete(); // delete photo object
 
-		return Redirect::route('user.products.show', $product_id)
+		return Redirect::route('user.products.show', [$user->id, $product_id])
 			->withMessage('Photo Deleted');
 	}
 
@@ -207,8 +212,9 @@ class PhotoController extends Controller {
 			// ->withProductPhoto($photo);
 	}
 
-	public function getPhotoTest($product_id)
+	public function getPhotoTest($user_id, $product_id)
 	{
+		$user = User::findOrFail($user_id); 
 		$file = Request::file('file_0'); // Use Request with Illuminate\Support\Facades\Request;
 		$fileMimeType = $file->getClientMimeType();
 		$response = Response::make($file, 200); // Create response with file
@@ -224,7 +230,7 @@ class PhotoController extends Controller {
 				// ->withInput();
 		}
 
-		return Redirect::route('user.products.photos.store', [$product->id])
+		return Redirect::route('user.products.photos.store', [$user->id, $product->id])
 				->withErrors($validator)
 				->withInput();
 	}

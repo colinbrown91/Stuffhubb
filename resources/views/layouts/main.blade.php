@@ -53,7 +53,7 @@
                      <span class="caret"></span></a>
                      <ul class="dropdown-menu">
                        @if (Auth::check())
-                        <li><a href="/dashboard">List</a></li>
+                        <li>{!! link_to_route('user.products.index', "List", [Auth::user()->id] ) !!}</li>
                         <li><a href="/dashboard">Rent</a></li>
                         <li>{!! link_to_route('user.show', "Dashboard", [Auth::user()->id] ) !!}</li>
                         <li role="separator" class="divider"></li>
