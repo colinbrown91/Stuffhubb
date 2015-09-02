@@ -51,8 +51,21 @@
 <!-- xxxxxxxxxxxxxx -->
 <!-- Search Results -->
 <!-- xxxxxxxxxxxxxx -->
+         <div class="row">
+            <div>
+               @foreach ($products as $product)
+                  <h4>{!! $product->product_name !!}</h4>
+                  <ul class = "no-bullet button-group">
+                     <li>
+                        {!! link_to_route('user.reservations.create' , 'Reserve' , [Auth::user()->id, $product->id] , ['class'=>'tiny button'])!!}
+                     </li>
+                     
+                        
+                  </ul>
 
-
+               @endforeach
+            </div>
+         </div>
          <div class="row">
             <div class="col-md-4">
                <div class="thumbnail">
