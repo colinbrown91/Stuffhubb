@@ -14,6 +14,7 @@ use Input;
 use Redirect;
 use Validator;
 use Session;
+use App\Models\ItemHelper;
 
 class ProductController extends Controller {
 

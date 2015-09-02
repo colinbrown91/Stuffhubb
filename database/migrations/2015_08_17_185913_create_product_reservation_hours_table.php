@@ -15,10 +15,10 @@ class CreateProductReservationHoursTable extends Migration {
 		Schema::create('product_reservation_hours', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->float('rate');
-			$table->date('hour');
 			$table->integer('product_id');
 			$table->integer('reservation_id');
+			$table->float('rate');
+			$table->date('hour');
 			$table->timestamps();
 		});
 	}

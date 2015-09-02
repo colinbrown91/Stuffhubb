@@ -4,26 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Product;
-use Auth;
-use View;
 
-
-class SearchController extends Controller {
-
-
-
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
-
+class ReservationController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -32,9 +14,7 @@ class SearchController extends Controller {
 	 */
 	public function index()
 	{
-		$products = Product::all();
-		return View::make('search.search')
-			->with('products', $products);
+		//
 	}
 
 	/**

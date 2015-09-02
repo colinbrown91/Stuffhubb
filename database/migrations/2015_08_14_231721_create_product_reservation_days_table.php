@@ -15,10 +15,10 @@ class CreateProductReservationDaysTable extends Migration {
 		Schema::create('product_reservation_days', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->float('rate');
-			$table->date('day');
 			$table->integer('product_id');
 			$table->integer('reservation_id');
+			$table->float('rate');
+			$table->date('day');
 			$table->timestamps();
 		});
 	}

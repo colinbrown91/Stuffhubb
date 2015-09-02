@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "26de0dac3dbda4ff1a66e1dddd116ab9",
+    "hash": "df908dd1375370c32df82efa8dea3fd7",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -381,16 +381,16 @@
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "2ee5bc7f1a92efecc90da7f6711a53a7be26b5b7"
+                "reference": "97fe7210def29451ec74923b27e552238defd75a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/2ee5bc7f1a92efecc90da7f6711a53a7be26b5b7",
-                "reference": "2ee5bc7f1a92efecc90da7f6711a53a7be26b5b7",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/97fe7210def29451ec74923b27e552238defd75a",
+                "reference": "97fe7210def29451ec74923b27e552238defd75a",
                 "shasum": ""
             },
             "require": {
@@ -410,7 +410,7 @@
                     "GuzzleHttp\\Promise\\": "src/"
                 },
                 "files": [
-                    "src/functions.php"
+                    "src/functions_include.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -428,20 +428,20 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2015-06-24 16:16:25"
+            "time": "2015-08-15 19:37:21"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "af0e1758de355eb113917ad79c3c0e3604bce4bd"
+                "reference": "4ef919b0cf3b1989523138b60163bbcb7ba1ff7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/af0e1758de355eb113917ad79c3c0e3604bce4bd",
-                "reference": "af0e1758de355eb113917ad79c3c0e3604bce4bd",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/4ef919b0cf3b1989523138b60163bbcb7ba1ff7e",
+                "reference": "4ef919b0cf3b1989523138b60163bbcb7ba1ff7e",
                 "shasum": ""
             },
             "require": {
@@ -465,7 +465,7 @@
                     "GuzzleHttp\\Psr7\\": "src/"
                 },
                 "files": [
-                    "src/functions.php"
+                    "src/functions_include.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -486,7 +486,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2015-06-24 19:55:15"
+            "time": "2015-08-15 19:32:36"
         },
         {
             "name": "illuminate/html",
@@ -540,12 +540,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "156f9d6f8a186c68b92f0c50084718f02dae1b5f"
+                "reference": "1124ff3c6298f0dcf9edf9156623904d7a5c3428"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/156f9d6f8a186c68b92f0c50084718f02dae1b5f",
-                "reference": "156f9d6f8a186c68b92f0c50084718f02dae1b5f",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/1124ff3c6298f0dcf9edf9156623904d7a5c3428",
+                "reference": "1124ff3c6298f0dcf9edf9156623904d7a5c3428",
                 "shasum": ""
             },
             "require": {
@@ -594,7 +594,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2015-07-10 15:03:58"
+            "time": "2015-08-16 15:31:59"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -911,16 +911,16 @@
         },
         {
             "name": "laravel/socialite",
-            "version": "v2.0.10",
+            "version": "v2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/socialite.git",
-                "reference": "b36860a599669a80b45216ee9d3b39083dc767fe"
+                "reference": "8a9e4b61f5078ca1c10fb608d76e845825ca5a3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/socialite/zipball/b36860a599669a80b45216ee9d3b39083dc767fe",
-                "reference": "b36860a599669a80b45216ee9d3b39083dc767fe",
+                "url": "https://api.github.com/repos/laravel/socialite/zipball/8a9e4b61f5078ca1c10fb608d76e845825ca5a3b",
+                "reference": "8a9e4b61f5078ca1c10fb608d76e845825ca5a3b",
                 "shasum": ""
             },
             "require": {
@@ -938,7 +938,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -961,7 +961,7 @@
                 "laravel",
                 "oauth"
             ],
-            "time": "2015-08-03 12:55:40"
+            "time": "2015-08-14 20:44:20"
         },
         {
             "name": "league/flysystem",
@@ -1046,16 +1046,16 @@
         },
         {
             "name": "league/oauth1-client",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth1-client.git",
-                "reference": "815b2dbd2b866409f3de6e4046a76e66b5af608e"
+                "reference": "4d4edd9b6014f882e319231a9b3351e3a1dfdc81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth1-client/zipball/815b2dbd2b866409f3de6e4046a76e66b5af608e",
-                "reference": "815b2dbd2b866409f3de6e4046a76e66b5af608e",
+                "url": "https://api.github.com/repos/thephpleague/oauth1-client/zipball/4d4edd9b6014f882e319231a9b3351e3a1dfdc81",
+                "reference": "4d4edd9b6014f882e319231a9b3351e3a1dfdc81",
                 "shasum": ""
             },
             "require": {
@@ -1063,9 +1063,9 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "mockery/mockery": "0.7.2",
-                "phpunit/phpunit": "*",
-                "satooshi/php-coveralls": "dev-master"
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~2.0"
             },
             "type": "library",
             "extra": {
@@ -1105,7 +1105,7 @@
                 "tumblr",
                 "twitter"
             ],
-            "time": "2015-05-18 00:04:43"
+            "time": "2015-08-22 09:49:14"
         },
         {
             "name": "monolog/monolog",
@@ -1229,29 +1229,25 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.20.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "bfd3eaba109c9a2405c92174c8e17f20c2b9caf3"
+                "reference": "5df97d55fd9b9b630c71c01050ff8901ca4085ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/bfd3eaba109c9a2405c92174c8e17f20c2b9caf3",
-                "reference": "bfd3eaba109c9a2405c92174c8e17f20c2b9caf3",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/5df97d55fd9b9b630c71c01050ff8901ca4085ef",
+                "reference": "5df97d55fd9b9b630c71c01050ff8901ca4085ef",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0",
-                "symfony/translation": "~2.6|~3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "php": ">=5.3.0"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Carbon": "src"
+                    "Carbon": "."
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1266,13 +1262,13 @@
                 }
             ],
             "description": "A simple API extension for DateTime.",
-            "homepage": "http://carbon.nesbot.com",
+            "homepage": "https://github.com/briannesbitt/Carbon",
             "keywords": [
                 "date",
                 "datetime",
                 "time"
             ],
-            "time": "2015-06-25 04:19:39"
+            "time": "2012-10-15 00:41:18"
         },
         {
             "name": "nikic/php-parser",
@@ -2505,16 +2501,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.4.1",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373"
+                "reference": "4745ded9307786b730d7a60df5cb5a6c43cf95f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
-                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/4745ded9307786b730d7a60df5cb5a6c43cf95f7",
+                "reference": "4745ded9307786b730d7a60df5cb5a6c43cf95f7",
                 "shasum": ""
             },
             "require": {
@@ -2561,7 +2557,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-04-27 22:15:08"
+            "time": "2015-08-13 10:07:40"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2756,16 +2752,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.3",
+            "version": "1.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "7a9b0969488c3c54fd62b4d504b3ec758fd005d9"
+                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/7a9b0969488c3c54fd62b4d504b3ec758fd005d9",
-                "reference": "7a9b0969488c3c54fd62b4d504b3ec758fd005d9",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
+                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
                 "shasum": ""
             },
             "require": {
@@ -2801,20 +2797,20 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-06-19 03:43:16"
+            "time": "2015-08-16 08:51:00"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.3",
+            "version": "4.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "fd3050e26e3105f416d74c4d33aea659b406c59d"
+                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fd3050e26e3105f416d74c4d33aea659b406c59d",
-                "reference": "fd3050e26e3105f416d74c4d33aea659b406c59d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2246830f4a1a551c67933e4171bf2126dc29d357",
+                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357",
                 "shasum": ""
             },
             "require": {
@@ -2873,24 +2869,24 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-10 09:16:56"
+            "time": "2015-08-24 04:09:38"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "2.3.6",
+            "version": "2.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "18dfbcb81d05e2296c0bcddd4db96cade75e6f42"
+                "reference": "5e2645ad49d196e020b85598d7c97e482725786a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/18dfbcb81d05e2296c0bcddd4db96cade75e6f42",
-                "reference": "18dfbcb81d05e2296c0bcddd4db96cade75e6f42",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/5e2645ad49d196e020b85598d7c97e482725786a",
+                "reference": "5e2645ad49d196e020b85598d7c97e482725786a",
                 "shasum": ""
             },
             "require": {
-                "doctrine/instantiator": "~1.0,>=1.0.2",
+                "doctrine/instantiator": "^1.0.2",
                 "php": ">=5.3.3",
                 "phpunit/php-text-template": "~1.2",
                 "sebastian/exporter": "~1.2"
@@ -2929,7 +2925,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-07-10 06:54:24"
+            "time": "2015-08-19 09:14:08"
         },
         {
             "name": "sebastian/comparator",
