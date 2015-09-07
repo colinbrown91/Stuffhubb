@@ -243,6 +243,8 @@ class PhotoController extends Controller {
 
 		// $img = Image::make($file);
 
+		$background = Image::canvas(320, 320); // background to center images for consistency
+
 		$w = $img->width(); // get dims of original img
 		$h = $img->height(); 
 		$maxhw = 320; // max dims
@@ -254,7 +256,8 @@ class PhotoController extends Controller {
 			$min_ratio = $minhw / $minhw; // ratio of min dims
 
 			if ($old_ratio === $min_ratio) { // if ratios match
-				return $img->resize($minhw, $minhw); // return img with min h/w
+				$img->resize($maxhw, $maxhw); // img with max h/w
+				return $background->insert($img, 'center'); //return img centered on background 320x320
 			}
 			// else { // if ratios dont match, use ratios to constraint proportions
 			// 	$new_dim = [$h, $w];
@@ -267,9 +270,10 @@ class PhotoController extends Controller {
 			// 	return resize_image($img, $new_dim[0], $new_dim[1]);
 			// }
 			else {
-				return $img->resize($maxhw, null, function($constraint){
+				$img->resize($maxhw, $maxhw, function($constraint){ 
 					$constraint->aspectRatio();
 				});
+				return $background->insert($img, 'center'); //return img centered on background 320x320
 			}
 		}
 	}

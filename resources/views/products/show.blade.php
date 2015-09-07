@@ -26,7 +26,7 @@
 			</div>
 		@endforeach
 		<p> {!! link_to_route('user.products.photos.create', 'add picture', [$user->id, $product->id], ['class' => 'button success'])  !!} </p>
-		<p> {!! link_to_route('user.products.index', 'back', null, ['class' => 'small button']) !!} </p>
+		<p> {!! link_to_route('user.products.index', 'back', [$user->id], ['class' => 'small button']) !!} </p>
 	</div>
 
 @endsection
