@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductReservationDaysTable extends Migration {
+class CreateProductReservationHoursTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,13 @@ class CreateProductReservationDaysTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('product_reservation_days', function(Blueprint $table)
+		Schema::create('product_reservation_hours', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('product_id');
 			$table->integer('reservation_id');
 			$table->float('rate');
-			$table->date('day');
+			$table->date('hour');
 			$table->timestamps();
 		});
 	}
@@ -30,7 +30,7 @@ class CreateProductReservationDaysTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('product_reservation_days');
+		Schema::drop('product_reservation_hours');
 	}
 
 }

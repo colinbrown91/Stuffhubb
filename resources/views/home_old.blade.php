@@ -6,9 +6,14 @@
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
 <<<<<<< HEAD
+<<<<<<< HEAD
 				<div class="panel-heading">Home Colin</div>
 =======
 				<div class="panel-heading">Home Matt</div>
+>>>>>>> master
+=======
+
+				<div class="panel-heading">Home Colin</div>
 >>>>>>> master
 
 				<div class="panel-body">

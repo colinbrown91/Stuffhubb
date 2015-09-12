@@ -14,6 +14,7 @@ use Input;
 use Redirect;
 use Validator;
 use Session;
+use App\Models\ItemHelper;
 
 class ProductController extends Controller {
 
@@ -141,10 +142,11 @@ class ProductController extends Controller {
 	 */
 	public function show($user_id, $product_id)
 	{
+		$user = User::findOrFail($user_id);
 		$product = Product::findOrFail($product_id);
 		$photos = $product->productPhotos()->get(); // productPhotos() in Product Model
 		return View::make('products.show')
-			->withUserId($user_id)
+			->withUser($user)
 			->withProduct($product)
 			->withPhotos($photos);
 	}

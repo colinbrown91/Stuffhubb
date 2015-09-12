@@ -12,8 +12,12 @@
 */
 
 Route::get('/', 'WelcomeController@index');
-
+Route::get('/about','AboutController@index');
 Route::get('home', 'HomeController@index');
+Route::get('/book', function()
+	{
+		return view('reservations/book');
+	}); // test for reservation setup
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -33,10 +37,12 @@ Route::get('user/products/photos/getphoto/{photo_id}', ['uses' => 'PhotoControll
 // Route::post('products/photos/getphototest/{product_id}', ['uses' => 'PhotoController@getPhotoTest', 'as' => 'products.photos.getphototest']); 
 Route::resource('user.products.photos', 'PhotoController');
 
-Route::get('/about','AboutController@index');
-
 Route::get('/db', function(){
 	return DB::select('select database();');
 });
 
 Route::resource('search', 'SearchController');
+Route::resource('user.reservations', 'ReservationController');
+
+Route::post('product/calendar/setPriceForDayHour', ['uses' => 'ProductCalendarController@setPriceInDateRangeForProduct', 'as' => 'product.calendar.setPriceForDayHour']);
+Route::resource('product.calendar', 'ProductCalendarController');
