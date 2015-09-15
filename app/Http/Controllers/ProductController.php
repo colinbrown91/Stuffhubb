@@ -74,7 +74,15 @@ class ProductController extends Controller {
 		// Validation
 		// define rules
 		$rules = array(
-			// 'name' => array('required', 'unique:todo_lists,name')
+			'product_name' => 'required',
+			'product_street' => 'required',
+			'product_city' => 'required',
+			'product_state' => 'required',
+			'product_zipcode' => 'required',
+			'base_price_per_hour' => 'required',
+			'base_price_per_day' => 'required',
+			'base_price_per_week' => 'required',
+			'base_price_per_month' => 'required'
 		);
 
 		// pass input to validator
@@ -103,9 +111,16 @@ class ProductController extends Controller {
 		 * same name, but maybe not
 		 */
 
-		// Get inputs from create form
+		// Get inputs from form
 		$product_name = Input::get('product_name');
-		$product_base_price = Input::get('base_price');
+		$product_street = Input::get('product_street');
+		$product_city = Input::get('product_city');
+		$product_state = Input::get('product_state');
+		$product_zipcode = Input::get('product_zipcode');
+		$product_base_price_per_hour = Input::get('base_price_per_hour');
+		$product_base_price_per_day = Input::get('base_price_per_day');
+		$product_base_price_per_week = Input::get('base_price_per_week');
+		$product_base_price_per_month = Input::get('base_price_per_month');
 		// $file = Request::file('file_0');
 		// $product_picture_filename = $file->getClientOriginalName();
 		// $product_picture_0_url = asset(Input::get('picture_0'));
@@ -117,8 +132,16 @@ class ProductController extends Controller {
 		// Set variables of new Product to values received from input form
 		// Name
 		$product->product_name = $product_name;
-		// base_price
-		$product->base_price = $product_base_price;
+		// Address
+		$product->product_street = $product_street;
+		$product->product_city = $product_city;
+		$product->product_state = $product_state;
+		$product->product_zipcode = $product_zipcode;
+		// base_price hour, day, week, month
+		$product->base_price_per_hour = $product_base_price_per_hour;
+		$product->base_price_per_day = $product_base_price_per_day;
+		$product->base_price_per_week = $product_base_price_per_week;
+		$product->base_price_per_month = $product_base_price_per_month;
 		// User
 		$product->user_id = $user->id;
 		// Picture URLs
@@ -128,7 +151,9 @@ class ProductController extends Controller {
 		// Upload photos
 		// Redirect::route('products.files.store');
 		// Redirect to Index View with successful creation message
-		return Redirect::route('user.products.index', $user->id)
+		// return Redirect::route('user.products.index', $user->id)
+			// ->withMessage('Product was created!');
+		return Redirect::route('user.products.show', [$user->id, $product->id])
 			->withMessage('Product was created!');
 	}
 
@@ -161,10 +186,13 @@ class ProductController extends Controller {
 	 */
 	public function edit($user_id, $product_id)
 	{
+		$user = User::findOrFail($user_id);
 		$product = Product::findOrFail($product_id);
+		$photos = $product->productPhotos()->get(); // productPhotos() in Product Model
 		return View::make('products.edit')
+			->withUser($user)
 			->withProduct($product)
-			->withUserId($user_id);
+			->withPhotos($photos);
 	}
 
 	/**
@@ -173,12 +201,24 @@ class ProductController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($user_id, $product_id)
 	{
+		// retrieve user that product will belong to
+		$user = User::findOrFail($user_id);
+		// retrieve existing product to be updated
+		$product = Product::findOrFail($product_id);
 		// Validation
 		// define rules
 		$rules = array(
-			// 'name' => array('required', 'unique:todo_lists,name')
+			'product_name' => 'required',
+			'product_street' => 'required',
+			'product_city' => 'required',
+			'product_state' => 'required',
+			'product_zipcode' => 'required',
+			'base_price_per_hour' => 'required',
+			'base_price_per_day' => 'required',
+			'base_price_per_week' => 'required',
+			'base_price_per_month' => 'required'
 		);
 
 		// pass input to validator
@@ -192,8 +232,6 @@ class ProductController extends Controller {
 				->withErrors($validator)
 				->withInput();
 		}
-		
-				// $bool0 = 0;
 
 		/** 
 		 * the following line is for testing purposes
@@ -209,30 +247,44 @@ class ProductController extends Controller {
 		 * same name, but maybe not
 		 */
 
-		// Get inputs from create form
-		$product_name = Input::get('name');
-		$product_base_price = Input::get('base_price');
+		// Get inputs from form
+		$product_name = Input::get('product_name');
+		$product_street = Input::get('product_street');
+		$product_city = Input::get('product_city');
+		$product_state = Input::get('product_state');
+		$product_zipcode = Input::get('product_zipcode');
+		$product_base_price_per_hour = Input::get('base_price_per_hour');
+		$product_base_price_per_day = Input::get('base_price_per_day');
+		$product_base_price_per_week = Input::get('base_price_per_week');
+		$product_base_price_per_month = Input::get('base_price_per_month');
 		// $file = Request::file('file_0');
 		// $product_picture_filename = $file->getClientOriginalName();
 		// $product_picture_0_url = asset(Input::get('picture_0'));
 		// FileUploadTest::fileUpload($product_picture_0_url);
 
-		// Create new Product
-		$product = Product::findOrFail($id);
-
 		// Set variables of new Product to values received from input form
 		// Name
 		$product->product_name = $product_name;
-		// base_price
-		$product->base_price = $product_base_price;
+		// Address
+		$product->product_street = $product_street;
+		$product->product_city = $product_city;
+		$product->product_state = $product_state;
+		$product->product_zipcode = $product_zipcode;
+		// base_price hour, day, week, month
+		$product->base_price_per_hour = $product_base_price_per_hour;
+		$product->base_price_per_day = $product_base_price_per_day;
+		$product->base_price_per_week = $product_base_price_per_week;
+		$product->base_price_per_month = $product_base_price_per_month;
+		// User
+		$product->user_id = $user->id;
 		// Picture URLs
 		// $product->original_filename = $product_picture_filename;
-		// Save 
+		// Update
 		$product->update();
 		// Upload photos
 		// Redirect::route('products.files.store');
 		// Redirect to Index View with successful creation message
-		return Redirect::route('user.products.index')
+		return Redirect::route('user.products.show', [$user->id, $product->id])
 			->withMessage('Product was updated!');
 	}
 
@@ -249,7 +301,7 @@ class ProductController extends Controller {
 		$product = Product::findOrFail($product_id)->delete();
 
 		return Redirect::route('user.products.index', $user_id)
-			->withMessage('Item Deleted');
+			->withMessage('Product was deleted');
 	}
 
 }
