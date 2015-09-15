@@ -18,7 +18,14 @@ class CreateProductsTable extends Migration {
 			//$table->string('user_name');
 			$table->integer('user_id');            //lister
 			$table->string('product_name', 100);   //100 character limit
-			$table->float('base_price');
+			$table->string('product_street', 100);
+			$table->string('product_city', 100);
+			$table->string('product_state', 100);
+			$table->string('product_zipcode', 100);
+			$table->float('base_price_per_hour');
+			$table->float('base_price_per_day');
+			$table->float('base_price_per_week');
+			$table->float('base_price_per_month');
 			$table->string('original_filename');
 			$table->integer('base_availability');
 			// $table->integer('max_occupancy');

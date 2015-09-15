@@ -69,6 +69,15 @@
          </div> 
       </nav>
 
+   <div class="container">
+
+      @if (Session::has('message'))
+        <div class="alert bg-success">
+            {!! Session::get('message') !!}
+        </div>
+      @endif
+
+   </div>
 
 <!-- xxxxxxx -->
 <!-- Content -->
