@@ -298,8 +298,9 @@ class ProductController extends Controller {
 	 */
 	public function destroy($user_id, $product_id)
 	{
-		$product = Product::findOrFail($product_id)->delete();
-
+		$product = Product::findOrFail($product_id);
+		$photos = $product->productPhotos()->delete(); // productPhotos() in Product Model
+		$product->delete();
 		return Redirect::route('user.products.index', $user_id)
 			->withMessage('Product was deleted');
 	}

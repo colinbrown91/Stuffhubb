@@ -1,6 +1,7 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class ProductPhoto extends Model {
 
@@ -15,4 +16,5 @@ class ProductPhoto extends Model {
 		return $this->belongsTo('App\Product');
 	}
 
+	
 }

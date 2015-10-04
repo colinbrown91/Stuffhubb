@@ -172,7 +172,6 @@ class PhotoController extends Controller {
 		$photo_filename = $photo->filename; // Get filename to delete in storage
 		Storage::disk('productPictures')->delete($photo_filename); // delete file from storage
 		$photo->delete(); // delete photo object
-
 		return Redirect::route('user.products.show', [$user->id, $product_id])
 			->withMessage('Photo Deleted');
 	}

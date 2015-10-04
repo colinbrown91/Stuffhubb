@@ -33,7 +33,8 @@ class Product extends Model {
      */
 	public function delete()
 	{
-		ProductPhoto::where('product_id', $this->id)->delete();
+		$photo = ProductPhoto::where('product_id', $this->id);
+		$photo->delete();
 		parent::delete();
 	}
 
