@@ -86,9 +86,12 @@ class ProductCalendarController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($product_id)
 	{
-		//
+		$product = Product::findOrFail($product_id);
+		return View::make('reservations.reserve')
+			->with('products', $products)
+			->withUser($user);
 	}
 
 	/**

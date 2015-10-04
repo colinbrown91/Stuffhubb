@@ -44,5 +44,5 @@ Route::get('/db', function(){
 Route::resource('search', 'SearchController');
 Route::resource('user.reservations', 'ReservationController');
 
-Route::post('product/calendar/setPriceForDayHour', ['uses' => 'ProductCalendarController@setPriceInDateRangeForProduct', 'as' => 'product.calendar.setPriceForDayHour']);
-Route::resource('product.calendar', 'ProductCalendarController');
+Route::post('products/calendar/setPriceForDayHour', ['uses' => 'ProductCalendarController@setPriceInDateRangeForProduct', 'as' => 'products.calendar.setPriceForDayHour']);
+Route::resource('products.calendar', 'ProductCalendarController');

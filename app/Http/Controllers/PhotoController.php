@@ -92,7 +92,7 @@ class PhotoController extends Controller {
 				->withMessage('This product has too many photos. Delete a photo before adding a new one.');
 		}
 		else { // upload photo
-			$file = Request::file('file_0'); // Use Request with Illuminate\Support\Facades\Request;		
+			$file = Request::file('file_0'); // Use Request with Illuminate\Support\Facades\Request;
 
 			$filename = $file->getClientOriginalName(); // Get filename
 			$extension = $file->getClientOriginalExtension(); // Retrieve file extension
@@ -100,6 +100,7 @@ class PhotoController extends Controller {
 			// Resizing Image Testing
 			$img = Image::make($file->getRealPath());
 			$img = PhotoController::resizePhotos($img, $filename, $extension);
+			var_dump($img);
 			// post image resize validation rules
 			// if($file->size() > 1000){ // test if file is still too large
 			// 	return Redirect::route('products.photos.create', [$product->id])
@@ -275,6 +276,12 @@ class PhotoController extends Controller {
 				});
 				return $background->insert($img, 'center'); //return img centered on background 320x320
 			}
+		}
+		else {
+				$img->resize($maxhw, $maxhw, function($constraint){ 
+					$constraint->aspectRatio();
+				});
+				return $background->insert($img, 'center'); //return img centered on background 320x320
 		}
 	}
 
