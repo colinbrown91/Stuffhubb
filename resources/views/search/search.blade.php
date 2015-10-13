@@ -105,7 +105,7 @@
                                     <li><strong>${!!$product->base_price_per_week!!}/Week</strong></li>
                                     <li><strong>${!!$product->base_price_per_month!!}/Month</strong></li>
                                    </ul>
-                                   <p>{!! link_to_route('products.calendar.show' , 'Reserve' , [$product->id] , ['class'=>'btn btn-primary form-control'])!!}</p>
+                                   <p>{!! link_to_route('products.calendar.show' ,'Rent' ,[$product->id, $product->productCalendar->id] , ['class'=>'btn btn-primary form-control']) !!}</p>
                               </div>
                           </div> {{--End Product Rates--}}
                      </div>

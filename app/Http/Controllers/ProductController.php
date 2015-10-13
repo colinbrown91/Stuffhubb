@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\User;
 use App\Tests;
+use App\ProductCalendar;
 
 use View;
 use Input;
@@ -148,6 +149,10 @@ class ProductController extends Controller {
 		// $product->original_filename = $product_picture_filename;
 		// Save 
 		$product->save();
+		
+		$cal = new ProductCalendar();
+		$cal->product_id = $product->id;
+		$product->productCalendar()->save($cal);
 		// Upload photos
 		// Redirect::route('products.files.store');
 		// Redirect to Index View with successful creation message

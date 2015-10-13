@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductCalendar extends Model {
 
+	protected $date = ['start_date, end_date'];
+
 	/**
      * The Product function of this model.
      * ProductCalendars belong to Products.

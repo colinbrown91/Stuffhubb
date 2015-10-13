@@ -26,6 +26,17 @@ class Product extends Model {
 		return $this->hasMany('App\ProductPhoto');
 	}
 
+	/**
+	 * The productCalendar function of this model.
+	 * Products have one ProductCalendar.
+	 * @return this - the product's calendar
+	 *
+	 */
+	public function productCalendar()
+	{
+		return $this->hasOne('App\ProductCalendar');
+	}
+
     /**
      * The delete function of this model.
      * Capture all children of the parent when deleting.

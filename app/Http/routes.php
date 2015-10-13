@@ -46,3 +46,14 @@ Route::resource('user.reservations', 'ReservationController');
 
 Route::post('products/calendar/setPriceForDayHour', ['uses' => 'ProductCalendarController@setPriceInDateRangeForProduct', 'as' => 'products.calendar.setPriceForDayHour']);
 Route::resource('products.calendar', 'ProductCalendarController');
+
+
+
+
+
+
+
+
+
+
+

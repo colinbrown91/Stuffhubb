@@ -100,7 +100,7 @@ class PhotoController extends Controller {
 			// Resizing Image Testing
 			$img = Image::make($file->getRealPath());
 			$img = PhotoController::resizePhotos($img, $filename, $extension);
-			var_dump($img);
+			// var_dump($img);
 			// post image resize validation rules
 			// if($file->size() > 1000){ // test if file is still too large
 			// 	return Redirect::route('products.photos.create', [$product->id])

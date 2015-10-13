@@ -2,10 +2,13 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Auth\CalendarController;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Product;
+use App\ProductCalendar;
+use View;
 
 class ProductCalendarController extends Controller {
 
@@ -61,7 +64,7 @@ class ProductCalendarController extends Controller {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Create new event in calendar
 	 *
 	 * @return Response
 	 */
@@ -71,13 +74,16 @@ class ProductCalendarController extends Controller {
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store new event in calendar
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($product_id, $calendar_id, Request $request)
 	{
-		//
+		$reservation_day = $request['start_dt'];
+		var_dump($reservation_day);
+		return $reservation_day;
+		// $events = array('$reservation_day' => array('Reservation 1'));
 	}
 
 	/**
@@ -86,12 +92,13 @@ class ProductCalendarController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($product_id)
+	public function show($product_id, $calendar_id)
 	{
 		$product = Product::findOrFail($product_id);
-		return View::make('reservations.reserve')
-			->with('products', $products)
-			->withUser($user);
+		$calendar = $product->productCalendar;
+		return View::make('reservations.rent')
+			->withProduct($product)
+			->withCalendar($calendar);
 	}
 
 	/**

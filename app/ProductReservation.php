@@ -27,6 +27,28 @@ class ProductReservation extends Model {
 	}
 
 	/**
+     * The productReservationWeeks function of this model.
+     * ProductReservations have many ProductReservationWeeks.
+     * @return this - array of ProductReservationWeeks that belong to the ProductReservation.
+     *
+     */
+	public function productReservationWeeks()
+	{
+		return $this->hasMany('App\ProductReservationWeek');
+	}
+
+	/**
+     * The productReservationMonths function of this model.
+     * ProductReservations have many ProductReservationMonths.
+     * @return this - array of ProductReservationMonths that belong to the ProductReservation.
+     *
+     */
+	public function productReservationMonths()
+	{
+		return $this->hasMany('App\ProductReservationMonth');
+	}
+
+	/**
      * The User function of this model.
      * ProductReservations belong to Users.
      * @return this - User that the ProductReservation belongs to.
