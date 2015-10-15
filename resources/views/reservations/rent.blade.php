@@ -73,15 +73,25 @@
 
         <div class="row">
             <div class="col m6 s12 offset-m3">
-                <form>
-                <div class="card-panel">
+                {{-- <form> --}}
+                {{-- <div class="card-panel"> --}}
                     <div class="row">
                         <div class="col m5 s12">
 
-                            {!! Form::open(array('route' => ['products.calendar.store', $product->id, $calendar->id])) !!}
-                                {!! Form::label('date', 'From') !!}
-                                {!! Form::input('date', 'start_dt', date('Y-m-d'), ['class' => 'form-control']) !!}
-                                {!! Form::submit('Search', ['class' => 'btn btn-primary']) !!}
+                            {!! Form::model($product, array('route' => ['products.calendar.update', $product->id, $calendar->id], 'method' => 'PUT')) !!}
+                                <div class='form-group'>
+                                  {!! Form::label('reservation_length', 'Hour') !!}
+                                  {!! Form::radio('reservation_length', 'rent_by_hour', true) !!}
+                                  {!! Form::label('reservation_length', 'Day') !!}
+                                  {!! Form::radio('reservation_length', 'rent_by_day') !!}
+                                  {!! Form::label('reservation_length', 'Week') !!}
+                                  {!! Form::radio('reservation_length', 'rent_by_week') !!} 
+                                  {!! Form::label('reservation_length', 'Month') !!}
+                                  {!! Form::radio('reservation_length', 'rent_by_month') !!} </br>
+                                  {!! Form::label('start_date', 'From') !!}
+                                  {!! Form::input('date', 'start_date', date('Y-m-d'), ['class' => 'form-control']) !!}
+                                  {!! Form::submit('Search', ['class' => 'btn btn-primary']) !!}
+                                </div>
                             {!! Form::close() !!}
 
                             {{-- <div class="input-field">
@@ -89,6 +99,9 @@
                                 <input input-date type="text" id="start_dt" ng-model="search_param.start_dt"  format="d-m-yyyy"/>
                             </div> --}}
                         </div>
+
+
+
                         <div class="col m5 s12">
                             {{-- {!! Form::label('name', 'To') !!} --}}
                             {{-- {!! Form::input('date', 'start_dt', date('Y-m-d'), ['class' => 'form-control']) !!} --}}
@@ -109,8 +122,13 @@
                             {{-- <button ng-click="search()" class="btn btn-primary">Search</button> --}}
                         </div>
                     </div>
-                 </div>
-                </form>
+                    <div class="row"> {{-- Calendar --}}
+                        <div class="col m4 offset-m4">
+                          
+                        </div>
+                    </div>
+                 {{-- </div> --}}
+                {{-- </form> --}}
             </div>
         </div>
 

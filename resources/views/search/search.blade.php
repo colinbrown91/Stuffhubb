@@ -100,7 +100,7 @@
                               <div class="caption">
                                  <h4>Rate</h4>
                                    <ul class="list-unstyled">
-                                      <li><strong>${!!$product->base_price_per_hour!!}/Hour</strong></li>
+                                    <li><strong>${!!$product->base_price_per_hour!!}/Hour</strong></li>
                                     <li><strong>${!!$product->base_price_per_day!!}/Day</strong></li>
                                     <li><strong>${!!$product->base_price_per_week!!}/Week</strong></li>
                                     <li><strong>${!!$product->base_price_per_month!!}/Month</strong></li>
