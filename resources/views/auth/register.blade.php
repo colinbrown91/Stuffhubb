@@ -102,12 +102,12 @@
 			            <br>
 					    <div class="form-group">
 			              <div class="col-xs-offset-2 col-xs-8">
-			                <input type="radio" name="gender" value="male" id="male"><label for="male">  Male</label>
+			                <input type="radio" name="gender" value="male" id="male"> <label for="male">Male</label>
 			              </div>
 			            </div>
 					    <div class="form-group">
 			              <div class="col-xs-offset-2 col-xs-8">
-			                <input type="radio" name="gender" value="female" id="female"><label for="female">  Female</label>
+			                <input type="radio" name="gender" value="female" id="female"> <label for="female">Female</label>
 			              </div>
 			            </div>			
 			            <br>

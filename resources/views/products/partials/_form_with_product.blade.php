@@ -25,4 +25,4 @@
 {!! $errors->first('base_price_per_week', '<small class="error">:message</small>') !!}
 {!! $errors->first('base_price_per_month', '<small class="error">:message</small>') !!}
 
-{!! Form::submit('Submit', ['class' => 'button']) !!}
+{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
