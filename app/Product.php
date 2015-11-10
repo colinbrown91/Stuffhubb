@@ -67,5 +67,6 @@ class Product extends Model {
 	 * @var array
 	 */
 	// protected $hidden = ['password', 'remember_token'];
+	protected $hidden = ['user_id'];
 
 }

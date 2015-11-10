@@ -8,7 +8,7 @@ use Redirect;
 use App\Tests;
 use Validator;
 use App\Product;
-use App\Http\Requests;
+// use App\Http\Requests;
 use App\Models\ItemHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -54,78 +54,23 @@ class ProductController extends Controller {
 			->withUser($user);
 	}
 
-
 	/**
 	 * Store a newly created resource in storage.
-	 * @var array $rules 			- rules for product validation
-	 * @var validator $validator 	- validator for product objects
-	 * @var string $product_name 	- input product name
-	 * @var string $product_base_price 	- input product base_price
-	 * @var object $product 		- new product object
-	 * @return Response
-	 *  with message
+	 * @param  user_id - current user that product belongs to
+	 * @param  CreateProductRequest
+	 * @return null - redirect to product index of user
 	 */
 	public function store($user_id, CreateProductRequest $request)
 	{
-		// retrieve user that product will belong to
+		// find user for redirect
 		$user = User::findOrFail($user_id); 
+		// create new product with $request
+		$product = Product::create($request->all());
+		// set product $user_id with current user's id
+		$product->user_id = $user_id;
 
-		/** 
-		 * the following line is for testing purposes
-		 * to see all input from form
-		 * return Input::all();
-		 */
-
-		/**
-		 * Do we care about validation?
-		 * What would we want to validate?
-		 * Can products have the same names?
-		 * I'd say we would allow products with the 
-		 * same name, but maybe not
-		 */
-
-		// Get inputs from form
-		$product_name = Input::get('product_name');
-		$product_street = Input::get('product_street');
-		$product_city = Input::get('product_city');
-		$product_state = Input::get('product_state');
-		$product_zipcode = Input::get('product_zipcode');
-		$product_base_price_per_hour = Input::get('base_price_per_hour');
-		$product_base_price_per_day = Input::get('base_price_per_day');
-		$product_base_price_per_week = Input::get('base_price_per_week');
-		$product_base_price_per_month = Input::get('base_price_per_month');
-		// $file = Request::file('file_0');
-		// $product_picture_filename = $file->getClientOriginalName();
-		// $product_picture_0_url = asset(Input::get('picture_0'));
-		// FileUploadTest::fileUpload($product_picture_0_url);
-
-		// Create new Product
-		$product = new Product();
-
-		// Set variables of new Product to values received from input form
-		// Name
-		$product->product_name = $product_name;
-		// Address
-		$product->product_street = $product_street;
-		$product->product_city = $product_city;
-		$product->product_state = $product_state;
-		$product->product_zipcode = $product_zipcode;
-		// base_price hour, day, week, month
-		$product->base_price_per_hour = $product_base_price_per_hour;
-		$product->base_price_per_day = $product_base_price_per_day;
-		$product->base_price_per_week = $product_base_price_per_week;
-		$product->base_price_per_month = $product_base_price_per_month;
-		// User
-		$product->user_id = $user->id;
-		// Picture URLs
-		// $product->original_filename = $product_picture_filename;
-		// Save 
 		$product->save();
-		// Upload photos
-		// Redirect::route('products.files.store');
-		// Redirect to Index View with successful creation message
-		// return Redirect::route('user.products.index', $user->id)
-			// ->withMessage('Product was created!');
+
 		return Redirect::route('user.products.show', [$user->id, $product->id])
 			->withMessage('Product was created!');
 	}
@@ -139,10 +84,14 @@ class ProductController extends Controller {
 	 *  with @var photos
 	 */
 	public function show($user_id, $product_id)
-	{
-		$user = User::findOrFail($user_id);
+	{	
+		// find user for view creation
+		$user = User::findOrFail($user_id); 
+
 		$product = Product::findOrFail($product_id);
-		$photos = $product->productPhotos()->get(); // productPhotos() in Product Model
+		// productPhotos() in Product Model
+		$photos = $product->productPhotos()->get(); 
+
 		return View::make('products.show')
 			->withUser($user)
 			->withProduct($product)
@@ -159,9 +108,13 @@ class ProductController extends Controller {
 	 */
 	public function edit($user_id, $product_id)
 	{
+		// find user for view creation
 		$user = User::findOrFail($user_id);
+		// find product for view creation
 		$product = Product::findOrFail($product_id);
-		$photos = $product->productPhotos()->get(); // productPhotos() in Product Model
+		// productPhotos() in Product Model
+		$photos = $product->productPhotos()->get(); 
+		
 		return View::make('products.edit')
 			->withUser($user)
 			->withProduct($product)
@@ -174,89 +127,16 @@ class ProductController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($user_id, $product_id)
+	public function update($user_id, $product_id, CreateProductRequest $request)
 	{
-		// retrieve user that product will belong to
-		$user = User::findOrFail($user_id);
+		// used for redirect
+		$user = User::findOrFail($user_id); 
+		
 		// retrieve existing product to be updated
 		$product = Product::findOrFail($product_id);
-		// Validation
-		// define rules
-		$rules = array(
-			'product_name' => 'required',
-			'product_street' => 'required',
-			'product_city' => 'required',
-			'product_state' => 'required',
-			'product_zipcode' => 'required',
-			'base_price_per_hour' => 'required',
-			'base_price_per_day' => 'required',
-			'base_price_per_week' => 'required',
-			'base_price_per_month' => 'required'
-		);
 
-		// pass input to validator
-		$validator = Validator::make(Input::all(), $rules);
+		$product->update($request->all());
 
-		// test if input fails
-		if($validator->fails()){
-			// $messages = $validator->messages();
-			// return $messages;
-			return Redirect::route('user.products.create')
-				->withErrors($validator)
-				->withInput();
-		}
-
-		/** 
-		 * the following line is for testing purposes
-		 * to see all input from form
-		 * return Input::all();
-		 */
-
-		/**
-		 * Do we care about validation?
-		 * What would we want to validate?
-		 * Can products have the same names?
-		 * I'd say we would allow products with the 
-		 * same name, but maybe not
-		 */
-
-		// Get inputs from form
-		$product_name = Input::get('product_name');
-		$product_street = Input::get('product_street');
-		$product_city = Input::get('product_city');
-		$product_state = Input::get('product_state');
-		$product_zipcode = Input::get('product_zipcode');
-		$product_base_price_per_hour = Input::get('base_price_per_hour');
-		$product_base_price_per_day = Input::get('base_price_per_day');
-		$product_base_price_per_week = Input::get('base_price_per_week');
-		$product_base_price_per_month = Input::get('base_price_per_month');
-		// $file = Request::file('file_0');
-		// $product_picture_filename = $file->getClientOriginalName();
-		// $product_picture_0_url = asset(Input::get('picture_0'));
-		// FileUploadTest::fileUpload($product_picture_0_url);
-
-		// Set variables of new Product to values received from input form
-		// Name
-		$product->product_name = $product_name;
-		// Address
-		$product->product_street = $product_street;
-		$product->product_city = $product_city;
-		$product->product_state = $product_state;
-		$product->product_zipcode = $product_zipcode;
-		// base_price hour, day, week, month
-		$product->base_price_per_hour = $product_base_price_per_hour;
-		$product->base_price_per_day = $product_base_price_per_day;
-		$product->base_price_per_week = $product_base_price_per_week;
-		$product->base_price_per_month = $product_base_price_per_month;
-		// User
-		$product->user_id = $user->id;
-		// Picture URLs
-		// $product->original_filename = $product_picture_filename;
-		// Update
-		$product->update();
-		// Upload photos
-		// Redirect::route('products.files.store');
-		// Redirect to Index View with successful creation message
 		return Redirect::route('user.products.show', [$user->id, $product->id])
 			->withMessage('Product was updated!');
 	}
