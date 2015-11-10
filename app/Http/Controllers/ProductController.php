@@ -1,20 +1,18 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
-
-use App\Product;
-use App\User;
-use App\Tests;
-
 use View;
 use Input;
-use Redirect;
-use Validator;
 use Session;
+use App\User;
+use Redirect;
+use App\Tests;
+use Validator;
+use App\Product;
+use App\Http\Requests;
 use App\Models\ItemHelper;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateProductRequest;
 
 class ProductController extends Controller {
 
@@ -67,35 +65,10 @@ class ProductController extends Controller {
 	 * @return Response
 	 *  with message
 	 */
-	public function store($user_id)
+	public function store($user_id, CreateProductRequest $request)
 	{
 		// retrieve user that product will belong to
 		$user = User::findOrFail($user_id); 
-		// Validation
-		// define rules
-		$rules = array(
-			'product_name' => 'required',
-			'product_street' => 'required',
-			'product_city' => 'required',
-			'product_state' => 'required',
-			'product_zipcode' => 'required',
-			'base_price_per_hour' => 'required',
-			'base_price_per_day' => 'required',
-			'base_price_per_week' => 'required',
-			'base_price_per_month' => 'required'
-		);
-
-		// pass input to validator
-		$validator = Validator::make(Input::all(), $rules);
-
-		// test if input fails
-		if($validator->fails()){
-			// $messages = $validator->messages();
-			// return $messages;
-			return Redirect::route('user.products.create')
-				->withErrors($validator)
-				->withInput();
-		}
 
 		/** 
 		 * the following line is for testing purposes

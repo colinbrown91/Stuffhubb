@@ -37,4 +37,35 @@ class Product extends Model {
 		parent::delete();
 	}
 
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
+	// protected $table = 'users';
+
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	// protected $fillable = ['name', 'email', 'password', 'month', 'day', 'year', 'gender' ];
+	protected $fillable = ['product_name', 
+						   'product_street',
+						   'product_city',
+						   'product_city',
+						   'product_state',
+						   'product_zipcode',
+						   'base_price_per_hour',
+						   'base_price_per_day',
+						   'base_price_per_week',
+						   'base_price_per_month',];
+
+	/**
+	 * The attributes excluded from the model's JSON form.
+	 *
+	 * @var array
+	 */
+	// protected $hidden = ['password', 'remember_token'];
+
 }
